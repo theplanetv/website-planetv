@@ -1,0 +1,28 @@
+networks:
+  network:  # Define the network
+    ipam:
+      driver: default
+      config:
+        - subnet: 14.0.0.0/24  # Define the subnet for the custom network
+
+services:
+  database-postgresql:
+    build:
+      dockerfile: ./docker/database-postgresql/Dockerfile
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+    ports:
+      - '${POSTGRES_PUBLIC_PORT}:${POSTGRES_PORT}'
+    networks:
+      network:
+        ipv4_address: ${POSTGRES_PUBLIC_HOST}
+
+  web-svelte:
+    build:
+      dockerfile: ./docker/web-svelte/Dockerfile
+    ports:
+      - '${SVELTE_PUBLIC_PORT}:${SVELTE_PORT}'
+    networks:
+      network:
+        ipv4_address: ${SVELTE_PUBLIC_HOST}
