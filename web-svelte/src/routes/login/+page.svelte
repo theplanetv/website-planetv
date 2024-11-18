@@ -1,6 +1,5 @@
 <script>
-	import PageLayout from "../../components/PageLayout.svelte";
-  import "../../styles/header.css"
+  import HorizontalCenterLayout from "../../components/layout/HorizontalCenterLayout.svelte";
 
   let username = $state('')
   let password = $state('')
@@ -36,7 +35,7 @@
 </script>
 
 <style>
-  form {
+  .login-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,20 +49,22 @@
   }
 </style>
 
-<PageLayout>
-  <form onsubmit={submitLogin}>
-    <h1 class="h1">Login</h1>
-  
-    <div class="input-container">
-      <input type="text" placeholder="Username" value={username} onchange={onChangeUsername} />
-      <input type={showPassword ? "text" : "password"} placeholder="Password" value={password} onchange={onChangePassword} />
-    </div>
+<HorizontalCenterLayout>
+  <div class="card bg-base-100 w-96 shadow-xl">
+    <form class="login-form" onsubmit={submitLogin}>
+      <h1 class="h1">Login</h1>
 
-    <div>
-      <input type="checkbox" onclick={togglePassword} />
-      <span>Show password</span>
-    </div>
+      <div class="input-container">
+        <input type="text" placeholder="Username" value={username} onchange={onChangeUsername} />
+        <input type={showPassword ? "text" : "password"} placeholder="Password" value={password} onchange={onChangePassword} />
+      </div>
 
-    <button type="submit">Login</button>
-  </form>
-</PageLayout>
+      <div>
+        <input type="checkbox" onclick={togglePassword} />
+        <span>Show password</span>
+      </div>
+
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</HorizontalCenterLayout>
