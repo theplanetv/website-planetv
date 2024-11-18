@@ -1,14 +1,18 @@
 <script>
   import { page } from '$app/stores';  
 
-  let { href, children } = $props();
+  let { active, href, children } = $props();
 </script>
 
 
 <a
   class={`
-    px-4 py-2 rounded-full flex gap-x-1
-    ${$page.url.pathname === href ? "bg-orange-svelte text-white" : ""}
+    border rounded-full border-white px-4 py-2  flex gap-x-1
+    ${
+      $page.url.pathname === href || active === true ?
+      "bg-orange-svelte text-white hover:border-orange-svelte hover:bg-white hover:text-orange-svelte" :
+      ""
+    }
   `}
   href={href}
 >
