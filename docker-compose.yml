@@ -18,6 +18,34 @@ services:
       network:
         ipv4_address: ${POSTGRES_PUBLIC_HOST}
 
+  api-chi:
+    build:
+      dockerfile: ./docker/api-chi/Dockerfile
+    environment:
+      # Database
+      POSTGRES_USERNAME: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: ${POSTGRES_PUBLIC_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_DATABASE: ${POSTGRES_DATABASE}
+
+      # Auth
+      AUTH_USERNAME: ${API_CHI_AUTH_USERNAME}
+      AUTH_PASSWORD: ${API_CHI_AUTH_PASSWORD}
+      AUTH_BCRYPT_COST: ${API_CHI_AUTH_BCRYPT_COST}
+
+      # Api
+      API_PORT: ${API_CHI_PORT}
+
+      # Web
+      WEB_HOST: ${SVELTE_PUBLIC_HOST}
+      WEB_PORT: ${SVELTE_PORT}
+    ports:
+      - '${API_CHI_PUBLIC_PORT}:${API_CHI_PORT}'
+    networks:
+      network:
+        ipv4_address: ${API_CHI_PUBLIC_HOST}
+
   web-svelte:
     build:
       dockerfile: ./docker/web-svelte/Dockerfile
