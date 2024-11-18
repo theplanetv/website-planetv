@@ -6,8 +6,8 @@ on:
       - '*'
 
 jobs:
-  build-dev:
-    name: Build docker dev
+  build-docker:
+    name: Build docker
     runs-on: ubuntu-24.04
 
     steps:
@@ -16,3 +16,93 @@ jobs:
 
     - name: Setup Docker, Docker compose and build start
       uses: hoverkraft-tech/compose-action@v2.0.1
+
+  enter-nix-shell:
+    name: Enter nix shell
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: Setup nix
+      uses: cachix/install-nix-action@v27
+
+    - name: Enter nix flake devshell
+      run: nix develop .
+      if: always()
+
+  test-auth-route-docker:
+    name: Build and test auth route docker
+    runs-on: ubuntu-24.04
+    needs: [ build-docker ]
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: Setup Docker, Docker compose and build start
+      uses: hoverkraft-tech/compose-action@v2.0.1
+      with:
+        services: |
+          database-postgresql
+          api-chi
+
+    - name: Test api-chi auth route
+      run: sh scripts/test.bash api-auth-route
+
+  test-blogtag-route-docker:
+    name: Build and test blogtag route docker
+    runs-on: ubuntu-24.04
+    needs: [ build-docker ]
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: Setup Docker, Docker compose and build start
+      uses: hoverkraft-tech/compose-action@v2.0.1
+      with:
+        services: |
+          database-postgresql
+          api-chi
+
+    - name: Test api-chi blogtag route
+      run: sh scripts/test.bash api-blogtag-route
+
+  test-auth-service-docker:
+    name: Build and test auth service docker
+    runs-on: ubuntu-24.04
+    needs: [ build-docker ]
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: Setup Docker, Docker compose and build start
+      uses: hoverkraft-tech/compose-action@v2.0.1
+      with:
+        services: |
+          api-chi
+
+    - name: Test api-chi auth service
+      run: sh scripts/test.bash api-auth-service
+
+  test-blogtag-service-docker:
+    name: Build and test blogtag service docker
+    runs-on: ubuntu-24.04
+    needs: [ build-docker ]
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: Setup Docker, Docker compose and build start
+      uses: hoverkraft-tech/compose-action@v2.0.1
+      with:
+        services: |
+          database-postgresql
+          api-chi
+
+    - name: Test api-chi blogtag service
+      run: sh scripts/test.bash api-blogtag-service
