@@ -4,7 +4,11 @@ export default {
     './src/**/*.{html,js,svelte}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "orange-svelte": "#ff3e00"
+      },
+    },
   },
   plugins: [],
 }
