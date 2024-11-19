@@ -65,7 +65,7 @@
       const data = await response.json();
       console.log('Login successful:', data);
       alert('Login successful!');
-      // Handle successful login (e.g., redirect, store token, etc.)
+      goto('/admin', { replaceState: true });
     } catch (error) {
       console.error('An error occurred during login:', error);
       alert('An error occurred. Please try again later.');
