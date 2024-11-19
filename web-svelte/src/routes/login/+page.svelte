@@ -1,4 +1,6 @@
 <script>
+  import { goto } from '$app/navigation';
+
   import Button from '../../components/button/Button.svelte';
   import H1 from '../../components/header/H1.svelte';
   import ArrowLeftAltIcon from '../../components/icon/ArrowLeftAltIcon.svelte';
@@ -69,6 +71,33 @@
       alert('An error occurred. Please try again later.');
     }
   }
+
+  $effect(async () => {
+    try {
+      const response = await fetch('http://localhost:14003/api/auth/verify', {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Authorize failed:', errorData.message);
+        alert(`Authorize failed: ${errorData.message}`);
+        return;
+      }
+
+      const data = await response.json();
+      console.log('Authorize successful:', data);
+      alert('Authorize successful!');
+      goto('/admin', { replaceState: true });
+    } catch (error) {
+      console.error('An error occurred during verify:', error);
+      alert('An error occurred. Please try again later.');
+    }
+  })
 </script>
 
 
