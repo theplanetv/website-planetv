@@ -1,7 +1,7 @@
 <script>
-  let { children } = $props();
+	let { children } = $props();
 </script>
 
 <div class="h-screen content-center">
-  {@render children()}
+	{@render children()}
 </div>
