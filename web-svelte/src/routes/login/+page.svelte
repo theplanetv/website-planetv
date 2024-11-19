@@ -85,7 +85,6 @@
       if (!response.ok) {
         const errorData = await response.json();
         console.error('Authorize failed:', errorData.message);
-        alert(`Authorize failed: ${errorData.message}`);
         return;
       }
 
