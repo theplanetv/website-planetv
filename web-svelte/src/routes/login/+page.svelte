@@ -36,8 +36,34 @@
     showPassword = !showPassword;
   }
 
-  function submitLogin(event) {
+  async function submitLogin(event) {
     event.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:14003/api/auth/login', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Login failed:', errorData.message);
+        alert(`Login failed: ${errorData.message}`);
+        return;
+      }
+
+      const data = await response.json();
+      console.log('Login successful:', data);
+      alert('Login successful!');
+      // Handle successful login (e.g., redirect, store token, etc.)
+    } catch (error) {
+      console.error('An error occurred during login:', error);
+      alert('An error occurred. Please try again later.');
+    }
   }
 </script>
 
