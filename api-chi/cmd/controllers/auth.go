@@ -67,6 +67,52 @@ func (c *AuthController) Login(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+func (c *AuthController) Verify(w http.ResponseWriter, r *http.Request) {
+	cookie, err := r.Cookie("auth-token")
+	if err != nil {
+		render.Status(r, http.StatusUnauthorized)
+		render.JSON(w, r, message.Response{
+			Message: message.AUTH_FAILED,
+			Data:    nil,
+		})
+		return
+	}
+
+	if cookie.Value == "" {
+		render.Status(r, http.StatusUnauthorized)
+		render.JSON(w, r, message.Response{
+			Message: message.AUTH_FAILED,
+			Data:    nil,
+		})
+		return
+	}
+
+	isAuth, err := c.service.ValidateToken(cookie.Value)
+	if err != nil {
+		render.Status(r, http.StatusUnauthorized)
+		render.JSON(w, r, message.Response{
+			Message: message.AUTH_FAILED,
+			Data:    nil,
+		})
+		return
+	}
+
+	if !isAuth {
+		render.Status(r, http.StatusUnauthorized)
+		render.JSON(w, r, message.Response{
+			Message: message.AUTH_FAILED,
+			Data:    nil,
+		})
+		return
+	}
+
+	render.Status(r, http.StatusOK)
+	render.JSON(w, r, message.Response{
+		Message: message.AUTH_SUCCESS,
+		Data:    nil,
+	})
+}
+
 func (c *AuthController) Logout(w http.ResponseWriter, r *http.Request) {
 	// Invalidate the auth-token cookie by setting an expired date
 	http.SetCookie(w, &http.Cookie{
