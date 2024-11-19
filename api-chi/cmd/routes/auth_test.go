@@ -3,6 +3,7 @@ package routes
 import (
 	"api-chi/cmd/config"
 	"api-chi/cmd/models"
+	"api-chi/cmd/services"
 	"api-chi/internal/message"
 	"time"
 
@@ -20,6 +21,7 @@ func Test_AuthRoutes(t *testing.T) {
 	r := chi.NewRouter()
 	AuthRoutes(r)
 	config.LoadAuthConfig()
+	service := services.AuthService{}
 
 	t.Run("Login success", func(t *testing.T) {
 		// Prepare input data
@@ -87,6 +89,110 @@ func Test_AuthRoutes(t *testing.T) {
 		err := json.NewDecoder(recorder.Body).Decode(&response)
 		assert.NoError(t, err)
 		assert.Equal(t, message.LOGOUT_SUCCESS, response.Message)
+		assert.Nil(t, response.Data)
+	})
+
+	t.Run("Verify success", func(t *testing.T) {
+		// Prepare input data
+		input := models.Auth{Username: "admin", Password: "admin"}
+		authToken, _ := service.GenerateToken(&input)
+
+		// Create a response recorder and a dummy request with a valid auth-token cookie
+		req := httptest.NewRequest(http.MethodGet, "/auth/verify", nil)
+		req.AddCookie(&http.Cookie{
+			Name:     "auth-token",
+			Value:    authToken,
+			Path:     "/",
+			HttpOnly: true,
+			Secure:   false,
+			SameSite: http.SameSiteStrictMode,
+		})
+		res := httptest.NewRecorder()
+
+		// Serve the request through the router
+		r.ServeHTTP(res, req)
+
+		// Assert status code
+		assert.Equal(t, http.StatusOK, res.Code)
+
+		// Parse the response body
+		response := message.Response{}
+		err := json.NewDecoder(res.Body).Decode(&response)
+		assert.NoError(t, err)
+		assert.Equal(t, message.AUTH_SUCCESS, response.Message)
+		assert.Nil(t, response.Data)
+	})
+
+	t.Run("Verify failure - no cookie", func(t *testing.T) {
+		// Create a response recorder and a dummy request without cookies
+		req := httptest.NewRequest(http.MethodGet, "/auth/verify", nil)
+		res := httptest.NewRecorder()
+
+		// Serve the request through the router
+		r.ServeHTTP(res, req)
+
+		// Assert status code
+		assert.Equal(t, http.StatusUnauthorized, res.Code)
+
+		// Parse the response body
+		response := message.Response{}
+		err := json.NewDecoder(res.Body).Decode(&response)
+		assert.NoError(t, err)
+		assert.Equal(t, message.AUTH_FAILED, response.Message)
+		assert.Nil(t, response.Data)
+	})
+
+	t.Run("Verify failure - empty cookie value", func(t *testing.T) {
+		// Create a response recorder and a dummy request with an empty auth-token cookie
+		req := httptest.NewRequest(http.MethodGet, "/auth/verify", nil)
+		req.AddCookie(&http.Cookie{
+			Name:     "auth-token",
+			Value:    "",
+			Path:     "/",
+			HttpOnly: true,
+			Secure:   false, // Adjust based on your environment
+			SameSite: http.SameSiteStrictMode,
+		})
+		res := httptest.NewRecorder()
+
+		// Serve the request through the router
+		r.ServeHTTP(res, req)
+
+		// Assert status code
+		assert.Equal(t, http.StatusUnauthorized, res.Code)
+
+		// Parse the response body
+		response := message.Response{}
+		err := json.NewDecoder(res.Body).Decode(&response)
+		assert.NoError(t, err)
+		assert.Equal(t, message.AUTH_FAILED, response.Message)
+		assert.Nil(t, response.Data)
+	})
+
+	t.Run("Verify failure - invalid token", func(t *testing.T) {
+		// Create a response recorder and a dummy request with an invalid auth-token cookie
+		req := httptest.NewRequest(http.MethodGet, "/auth/verify", nil)
+		req.AddCookie(&http.Cookie{
+			Name:     "auth-token",
+			Value:    "invalid.jwt.token",
+			Path:     "/",
+			HttpOnly: true,
+			Secure:   false, // Adjust based on your environment
+			SameSite: http.SameSiteStrictMode,
+		})
+		res := httptest.NewRecorder()
+
+		// Serve the request through the router
+		r.ServeHTTP(res, req)
+
+		// Assert status code
+		assert.Equal(t, http.StatusUnauthorized, res.Code)
+
+		// Parse the response body
+		response := message.Response{}
+		err := json.NewDecoder(res.Body).Decode(&response)
+		assert.NoError(t, err)
+		assert.Equal(t, message.AUTH_FAILED, response.Message)
 		assert.Nil(t, response.Data)
 	})
 }
