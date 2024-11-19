@@ -1,7 +1,6 @@
 <script>
-	import SvelteIcon from "./icon/SvelteIcon.svelte";
+  import SvelteIcon from './icon/SvelteIcon.svelte';
 </script>
-
 
 <footer class="mx-auto w-fit text-center flex gap-x-1">
   <span>PlanetV Website - Built with</span>
