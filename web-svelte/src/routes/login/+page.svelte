@@ -15,6 +15,7 @@
   /**
    *
    * @param event
+   * @return {void}
    */
   function onChangeUsername(event) {
     username = event.target.value;
@@ -23,6 +24,7 @@
   /**
    *
    * @param event
+   * @return {void}
    */
   function onChangePassword(event) {
     password = event.target.value;
@@ -30,9 +32,11 @@
 
   /**
    *
-   * @returns {string}
+   * @param event
+   * @returns {void}
    */
-  function togglePassword() {
+  function togglePassword(event) {
+    event.stopPropagation();
     showPassword = !showPassword;
   }
 
@@ -67,6 +71,7 @@
   }
 </script>
 
+
 <HorizontalCenterLayout>
   <VerticalCenterLayout>
     <form
@@ -92,12 +97,14 @@
         <label
           class="border border-none rounded-xl py-2 px-1 flex items-center gap-2 focus-within:ring-1 focus-within:ring-orange-svelte"
         >
-          <button class="hover:cursor-pointer" onclick={togglePassword}>
-            {#if !showPassword}
-              <KeyIcon />
-            {:else}
-              <KeyOffIcon />
-            {/if}
+          <button type="button" class="hover:cursor-pointer" onclick={togglePassword}>
+            <span class="pointer-events-none">
+              {#if !showPassword}
+                <KeyIcon />
+              {:else}
+                <KeyOffIcon />
+              {/if}
+            </span>
           </button>
           <input
             class="outline-none grow"
@@ -111,9 +118,9 @@
 
       <Button type="submit">Login</Button>
 
-      <a href="/" class="flex gap-x-1 transition-colors duration-200 hover:text-orange-svelte"
-        ><ArrowLeftAltIcon />Back to Home</a
-      >
+      <a href="/" class="flex gap-x-1 transition-colors duration-200 hover:text-orange-svelte">
+        <ArrowLeftAltIcon />Back to Home
+      </a>
     </form>
   </VerticalCenterLayout>
 </HorizontalCenterLayout>
