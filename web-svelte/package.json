@@ -54,6 +54,5 @@
     "vite": "^5.0.11"
   },
   "dependencies": {
-    "daisyui": "^4.12.14"
   }
 }
