@@ -1,6 +1,8 @@
 <script>
   import { goto } from '$app/navigation';
 
+  import { env } from '$env/dynamic/public';
+
   import Button from '../../components/button/Button.svelte';
   import H1 from '../../components/header/H1.svelte';
   import ArrowLeftAltIcon from '../../components/icon/ArrowLeftAltIcon.svelte';
@@ -51,7 +53,7 @@
     }
 
     try {
-      const response = await fetch('http://localhost:14003/api/auth/login', {
+      const response = await fetch(`${env.PUBLIC_SVELTE_API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -79,7 +81,7 @@
 
   $effect(async () => {
     try {
-      const response = await fetch('http://localhost:14003/api/auth/verify', {
+      const response = await fetch(`${env.PUBLIC_SVELTE_API_BASE_URL}/api/auth/verify`, {
         method: 'GET',
         credentials: 'include',
         headers: {

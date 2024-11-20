@@ -1,6 +1,8 @@
 <script>
   import { goto } from '$app/navigation';
 
+  import { env } from '$env/dynamic/public';
+
   import { ActiveOptionEnum } from '$lib/enum.js';
   import MenuAdmin from '../../components/MenuAdmin.svelte';
 
@@ -13,8 +15,10 @@
   let data = $state([]);
 
   $effect(async () => {
+    console.log(env.PUBLIC_SVELTE_API_BASE_URL);
+
     try {
-      const authResponse = await fetch('http://localhost:14003/api/auth/verify', {
+      const authResponse = await fetch(`${env.PUBLIC_SVELTE_API_BASE_URL}/api/auth/verify`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -36,7 +40,7 @@
     }
 
     try {
-      const countResponse = await fetch(`http://localhost:14003/api/blogtag/count?search=${search}`, {
+      const countResponse = await fetch(`${env.PUBLIC_SVELTE_API_BASE_URL}/api/blogtag/count?search=${search}`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -58,7 +62,7 @@
     }
 
     try {
-      const dataResponse = await fetch(`http://localhost:14003/api/blogtag?search=${search}&limit=${limit}&page=${page}`, {
+      const dataResponse = await fetch(`${env.PUBLIC_SVELTE_API_BASE_URL}/api/blogtag?search=${search}&limit=${limit}&page=${page}`, {
         method: 'GET',
         credentials: 'include',
         headers: {
