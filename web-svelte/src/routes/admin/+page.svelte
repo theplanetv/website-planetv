@@ -1,6 +1,10 @@
 <script>
   import { goto } from '$app/navigation';
 
+  import { ActiveOptionEnum } from '$lib/enum.js';
+  import MenuAdmin from '../../components/MenuAdmin.svelte';
+
+  let activeOption = $state(ActiveOptionEnum.BLOGTAG);
   let search = $state('');
   let limit = $state(10);
   let page = $state(1);
@@ -77,6 +81,8 @@
   });
 </script>
 
-<div>
+<div class="flex">
+  <MenuAdmin activeOption={activeOption} />
+
   <h1>Admin</h1>
 </div>
