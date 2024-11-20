@@ -49,6 +49,8 @@ services:
   web-svelte:
     build:
       dockerfile: ./docker/web-svelte/Dockerfile
+    environment:
+      PUBLIC_SVELTE_API_BASE_URL: ${PUBLIC_SVELTE_API_BASE_URL}
     ports:
       - '${SVELTE_PUBLIC_PORT}:${SVELTE_PORT}'
     networks:
