@@ -9,7 +9,4 @@ RUN bun install
 # Copy source
 COPY web-svelte ./
 
-# Build the Svelte app
-RUN bun run build
-
 ENTRYPOINT ["bun", "run", "dev"]
