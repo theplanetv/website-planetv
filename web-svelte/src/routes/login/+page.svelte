@@ -45,6 +45,11 @@
   async function submitLogin(event) {
     event.preventDefault();
 
+    if (username === "" || password === "") {
+      alert("Username or password is empty!");
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:14003/api/auth/login', {
         method: 'POST',
