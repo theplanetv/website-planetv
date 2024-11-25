@@ -38,8 +38,8 @@ services:
       API_PORT: ${API_CHI_PORT}
 
       # Web
-      WEB_HOST: ${SVELTE_PUBLIC_HOST}
-      WEB_PORT: ${SVELTE_PORT}
+      WEB_HOST: ${LOCALHOST}
+      WEB_PORT: ${SVELTE_PUBLIC_PORT}
     ports:
       - '${API_CHI_PUBLIC_PORT}:${API_CHI_PORT}'
     networks:
