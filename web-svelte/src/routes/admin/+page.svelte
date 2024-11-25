@@ -4,10 +4,11 @@
   import { env } from '$env/dynamic/public';
 
   import { ActiveOptionEnum } from '$lib/enum.js';
+  import DisplayAdmin from '../../components/display/DisplayAdmin.svelte';
   import MenuAdmin from '../../components/MenuAdmin.svelte';
 
-  let activeOption = $state(ActiveOptionEnum.BLOGTAG);
-  let search = $state('');
+  let activeOption = $state({ value: ActiveOptionEnum.BLOGTAG });
+  let search = $state({ value: '' });
   let limit = $state(10);
   let page = $state(1);
 
@@ -15,8 +16,6 @@
   let data = $state([]);
 
   $effect(async () => {
-    console.log(env.PUBLIC_SVELTE_API_BASE_URL);
-
     try {
       const authResponse = await fetch(`${env.PUBLIC_SVELTE_API_BASE_URL}/api/auth/verify`, {
         method: 'GET',
@@ -38,9 +37,17 @@
       alert('An error occurred. Please try again later.');
       return; // Exit on error
     }
+  })
 
+  $effect(async () => {
+    search.value;
+
+    if (activeOption === ActiveOptionEnum.SETTINGS)
+      return;
+
+    // Fetch count
     try {
-      const countResponse = await fetch(`${env.PUBLIC_SVELTE_API_BASE_URL}/api/blogtag/count?search=${search}`, {
+      const countResponse = await fetch(`${env.PUBLIC_SVELTE_API_BASE_URL}/api/${activeOption.value}/count?search=${search.value}`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -61,8 +68,9 @@
       console.error('An error occurred while fetching count:', error);
     }
 
+    // Fetch data
     try {
-      const dataResponse = await fetch(`${env.PUBLIC_SVELTE_API_BASE_URL}/api/blogtag?search=${search}&limit=${limit}&page=${page}`, {
+      const dataResponse = await fetch(`${env.PUBLIC_SVELTE_API_BASE_URL}/api/${activeOption.value}?search=${search.value}&limit=${limit}&page=${page}`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -82,11 +90,13 @@
     } catch (error) {
       console.error('An error occurred while fetching data:', error);
     }
-  });
+  })
 </script>
 
 <div class="flex">
   <MenuAdmin activeOption={activeOption} />
 
   <h1>Admin</h1>
+
+  <DisplayAdmin search={search} />
 </div>

@@ -10,7 +10,7 @@
   <div class="flex flex-col">
     <button
       class={`py-2 
-        ${activeOption === ActiveOptionEnum.BLOGTAG ?
+        ${activeOption.value === ActiveOptionEnum.BLOGTAG ?
         "bg-orange-svelte text-white" :
         ""
         }`
@@ -24,7 +24,7 @@
 
     <button
     class={`py-2 
-      ${activeOption === ActiveOptionEnum.SETTINGS ?
+      ${activeOption.value === ActiveOptionEnum.SETTINGS ?
       "bg-orange-svelte text-white" :
       ""
       }`
