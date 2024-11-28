@@ -1,11 +1,12 @@
 <script>
   import { ActiveOptionEnum } from "$lib/enum.js";
+  import H1 from "./header/H1.svelte";
 
   let { activeOption } = $props();
 </script>
 
 <nav class="h-screen">
-  <h1 class="p-10 text-2xl font-bold text-center">Admin dashboard</h1>
+  <H1 class="py-5 px-10">Admin dashboard</H1>
 
   <div class="flex flex-col">
     <button
