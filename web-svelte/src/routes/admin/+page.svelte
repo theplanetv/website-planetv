@@ -42,7 +42,7 @@
   $effect(async () => {
     search.value;
 
-    if (activeOption === ActiveOptionEnum.SETTINGS)
+    if (activeOption.value === ActiveOptionEnum.SETTINGS)
       return;
 
     // Fetch count
@@ -94,7 +94,7 @@
 </script>
 
 <div class="flex">
-  <MenuAdmin activeOption={activeOption} />
+  <MenuAdmin bind:activeOption={activeOption} />
 
   <h1>Admin</h1>
 

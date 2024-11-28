@@ -2,7 +2,7 @@
   import { ActiveOptionEnum } from "$lib/enum.js";
   import H1 from "./header/H1.svelte";
 
-  let { activeOption } = $props();
+  let { activeOption = $bindable() } = $props();
 </script>
 
 <nav class="h-screen">
