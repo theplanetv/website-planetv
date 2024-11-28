@@ -16,7 +16,7 @@
         }`
       }
       onclick={() => {
-        activeOption = ActiveOptionEnum.BLOGTAG
+        activeOption.value = ActiveOptionEnum.BLOGTAG
       }}
     >
       Tag
@@ -30,7 +30,7 @@
       }`
     }
       onclick={() => {
-        activeOption = ActiveOptionEnum.SETTINGS
+        activeOption.value = ActiveOptionEnum.SETTINGS
       }}
     >
       Settings
