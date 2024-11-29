@@ -9,6 +9,7 @@
   import DisplayAdmin from '../../components/display/DisplayAdmin.svelte';
   import MenuAdmin from '../../components/MenuAdmin.svelte';
 
+  let isLoading = $state(true);
   let activeOption = $state({ value: ActiveOptionEnum.BLOGTAG });
   let search = $state({ value: '' });
   let limit = $state(10);
@@ -20,13 +21,12 @@
   onMount(async () => {
     const authResult = await CheckLogin();
 
-    console.log(authResult);
-
     if (authResult === false) {
-      alert('An error occurred. Please try again later.');
       goto('/login', { replaceState: true });
       return;
     }
+
+    isLoading = false;
   })
 
   $effect(async () => {
@@ -45,10 +45,12 @@
   });
 </script>
 
+{#if !isLoading}
 <div class="flex">
   <MenuAdmin bind:activeOption={activeOption} />
 
   <h1>Admin</h1>
 
-  <DisplayAdmin search={search} />
+  <DisplayAdmin search={search} count={count} data={data} />
 </div>
+{/if}

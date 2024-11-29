@@ -1,7 +1,8 @@
 <script>
   import { goto } from '$app/navigation';
+  import { onMount } from 'svelte';
 
-  import { env } from '$env/dynamic/public';
+  import { CheckLogin, Login } from '$lib/api/auth.js';
 
   import Button from '../../components/button/Button.svelte';
   import H1 from '../../components/header/H1.svelte';
@@ -12,6 +13,7 @@
   import HorizontalCenterLayout from '../../components/layout/HorizontalCenterLayout.svelte';
   import VerticalCenterLayout from '../../components/layout/VerticalCenterLayout.svelte';
 
+  let isLoading = $state(true);
   let username = $state('');
   let password = $state('');
   let showPassword = $state(false);
@@ -52,61 +54,30 @@
       return;
     }
 
-    try {
-      const response = await fetch(`${env.PUBLIC_SVELTE_API_BASE_URL}/api/auth/login`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password })
-      });
+    const loginResult = await Login(username, password);
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Login failed:', errorData.message);
-        alert(`Login failed: ${errorData.message}`);
-        return;
-      }
-
-      const data = await response.json();
-      console.log('Login successful:', data);
-      alert('Login successful!');
+    if (loginResult === true) {
+      alert('Login successful!')
       goto('/admin', { replaceState: true });
-    } catch (error) {
-      console.error('An error occurred during login:', error);
-      alert('An error occurred. Please try again later.');
+      return;
     }
+
+    alert('Login failed! Please try again...');
   }
 
-  $effect(async () => {
-    try {
-      const response = await fetch(`${env.PUBLIC_SVELTE_API_BASE_URL}/api/auth/verify`, {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+  onMount(async () => {
+    const authResult = await CheckLogin();
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Authorize failed:', errorData.message);
-        return;
-      }
-
-      const data = await response.json();
-      console.log('Authorize successful:', data);
-      alert('Authorize successful!');
+    if (authResult === true) {
       goto('/admin', { replaceState: true });
-    } catch (error) {
-      console.error('An error occurred during verify:', error);
-      alert('An error occurred. Please try again later.');
+      return;
     }
+
+    isLoading = false;
   })
 </script>
 
-
+{#if !isLoading}
 <HorizontalCenterLayout>
   <VerticalCenterLayout>
     <form
@@ -159,3 +130,4 @@
     </form>
   </VerticalCenterLayout>
 </HorizontalCenterLayout>
+{/if}

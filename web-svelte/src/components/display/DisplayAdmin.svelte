@@ -1,7 +1,7 @@
 <script>
   import KeyIcon from '../../components/icon/KeyIcon.svelte';
 
-  let { search } = $props();
+  let { search, count, data } = $props();
   let searchInput = $state('');
 
   /**
