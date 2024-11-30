@@ -1,7 +1,9 @@
 <script>
   import KeyIcon from '../../components/icon/KeyIcon.svelte';
+  import HorizontalCenterLayout from '../layout/HorizontalCenterLayout.svelte';
+  import Pagination from '../Pagination.svelte';
 
-  let { search, count, data } = $props();
+  let { search, page = $bindable(), maxPage, count, data } = $props();
   let searchInput = $state('');
 
   /**
@@ -24,7 +26,7 @@
   }
 </script>
 
-<div>
+<HorizontalCenterLayout>
   <label>
     <KeyIcon />
     <input
@@ -36,4 +38,6 @@
       onblur={onBlur}
     />
   </label>
-</div>
+
+  <Pagination bind:page={page} maxPage={maxPage} />
+</HorizontalCenterLayout>

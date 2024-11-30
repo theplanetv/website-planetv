@@ -1,11 +1,11 @@
 <script>
   import { goto } from '$app/navigation';
+  import { onMount } from 'svelte';
 
   import { CheckLogin } from '$lib/api/auth.js';
   import { GetCount, GetData } from '$lib/api/blogtag.js';
 
   import { ActiveOptionEnum } from '$lib/enum.js';
-    import { onMount } from 'svelte';
   import DisplayAdmin from '../../components/display/DisplayAdmin.svelte';
   import MenuAdmin from '../../components/MenuAdmin.svelte';
 
@@ -13,7 +13,7 @@
   let activeOption = $state({ value: ActiveOptionEnum.BLOGTAG });
   let search = $state({ value: '' });
   let limit = $state(10);
-  let page = $state(1);
+  let page = $state({ value: 1 });
 
   let count = $state(0);
   let data = $state([]);
@@ -49,8 +49,6 @@
 <div class="flex">
   <MenuAdmin bind:activeOption={activeOption} />
 
-  <h1>Admin</h1>
-
-  <DisplayAdmin search={search} count={count} data={data} />
+  <DisplayAdmin search={search} bind:page={page} maxPage={count === 0 ? 1 : Math.ceil(count / limit)} count={count} data={data} />
 </div>
 {/if}
