@@ -5,7 +5,7 @@
   import TableAdmin from '../table/TableAdmin.svelte';
 
   import { ActiveOptionEnum } from '$lib/enum.js';
-  import { BlogTag } from '$lib/types.js';
+  import { BlogTagColumn } from '$lib/types.js';
 
   let { activeOption, search, page = $bindable(), maxPage, count, data } = $props();
   let searchInput = $state('');
@@ -33,7 +33,7 @@
    * @returns {any}
    */
   function getColumns() {
-    if (activeOption === ActiveOptionEnum.BLOGTAG) return BlogTag;
+    if (activeOption === ActiveOptionEnum.BLOGTAG) return BlogTagColumn;
   }
 </script>
 

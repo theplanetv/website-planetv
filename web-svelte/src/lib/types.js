@@ -1,4 +1,4 @@
-export const BlogTag = {
+export const BlogTagColumn = {
   id: "Id",
   name: "Name",
 }

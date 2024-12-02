@@ -1,4 +1,7 @@
 <script>
+    import BaselineDelete from "../icon/BaselineDelete.svelte";
+import BaselineModeEdit from "../icon/BaselineModeEdit.svelte";
+
   let { columns, data } = $props();
 </script>
 
@@ -6,8 +9,9 @@
   <thead>
     <tr>
       {#each Object.keys(columns) as key}
-        <th>{columns[key]}</th>
+        <th class="bg-slate-200 p-2">{columns[key]}</th>
       {/each}
+      <th class="bg-slate-200 p-2">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -17,11 +21,15 @@
           {#each Object.keys(columns) as key}
             <td>{row[key]}</td>
           {/each}
+          <td>
+            <button><BaselineModeEdit /></button>
+            <button><BaselineDelete /></button>
+          </td>
         </tr>
       {/each}
     {:else}
       <tr>
-        <td class="text-center" colspan={Object.keys(columns).length}>No result</td>
+        <td colspan={Object.keys(columns).length + 1} style="text-align: center;">No result</td>
       </tr>
     {/if}
   </tbody>
