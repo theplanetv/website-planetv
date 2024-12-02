@@ -11,13 +11,13 @@
   <div class="flex flex-col">
     <button
       class={`py-2 
-        ${activeOption.value === ActiveOptionEnum.BLOGTAG ?
+        ${activeOption === ActiveOptionEnum.BLOGTAG ?
         "bg-orange-svelte text-white" :
         ""
         }`
       }
       onclick={() => {
-        activeOption.value = ActiveOptionEnum.BLOGTAG
+        activeOption = ActiveOptionEnum.BLOGTAG
       }}
     >
       Tag
@@ -25,13 +25,13 @@
 
     <button
     class={`py-2 
-      ${activeOption.value === ActiveOptionEnum.SETTINGS ?
+      ${activeOption === ActiveOptionEnum.SETTINGS ?
       "bg-orange-svelte text-white" :
       ""
       }`
     }
       onclick={() => {
-        activeOption.value = ActiveOptionEnum.SETTINGS
+        activeOption = ActiveOptionEnum.SETTINGS
       }}
     >
       Settings

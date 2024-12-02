@@ -10,7 +10,7 @@
   import MenuAdmin from '../../components/MenuAdmin.svelte';
 
   let isLoading = $state(true);
-  let activeOption = $state({ value: ActiveOptionEnum.BLOGTAG });
+  let activeOption = $state(ActiveOptionEnum.BLOGTAG);
   let search = $state({ value: '' });
   let limit = $state(10);
   let page = $state(1);
@@ -29,26 +29,27 @@
     isLoading = false;
 
     // Fetch count
-    const countResult = await GetCount(activeOption.value, search.value);
+    const countResult = await GetCount(activeOption, search.value);
     count = countResult;
 
     // Fetch data
-    const dataResult = await GetData(activeOption.value, search.value, limit, page);
+    const dataResult = await GetData(activeOption, search.value, limit, page);
     data = dataResult;
   })
 
   $effect(async () => {
+    activeOption;
     page;
 
-    if (activeOption.value === ActiveOptionEnum.SETTINGS)
+    if (activeOption === ActiveOptionEnum.SETTINGS)
       return;
 
     // Fetch count
-    const countResult = await GetCount(activeOption.value, search.value);
+    const countResult = await GetCount(activeOption, search.value);
     count = countResult;
 
     // Fetch data
-    const dataResult = await GetData(activeOption.value, search.value, limit, page);
+    const dataResult = await GetData(activeOption, search.value, limit, page);
     data = dataResult;
   });
 </script>

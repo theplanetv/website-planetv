@@ -33,7 +33,7 @@
    * @returns {any}
    */
   function getColumns() {
-    if (activeOption.value === ActiveOptionEnum.BLOGTAG) return BlogTag;
+    if (activeOption === ActiveOptionEnum.BLOGTAG) return BlogTag;
   }
 </script>
 
