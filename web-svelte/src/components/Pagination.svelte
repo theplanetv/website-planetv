@@ -9,44 +9,44 @@
   <button
     class="border border-white rounded-lg p-1 hover:border-orange-svelte hover:bg-orange-svelte hover:text-white flex items-center"
     onclick={() => {
-      if (page.value <= 1)
+      if (page <= 1)
         return;
 
-      page.value--;
+      page--;
     }}
   >
     <OutlineKeyboardArrowLeft width={28} height={28} />
   </button>
 
-  {#if page.value > 1}
+  {#if page > 1}
   <button
     class="border border-white rounded-lg px-4 py-2 hover:border-orange-svelte hover:bg-orange-svelte hover:text-white flex items-center"
-    onclick={() => page.value = 1}
+    onclick={() => page = 1}
   >  
     1
   </button>
   {/if}
 
-  {#if page.value > 2}
+  {#if page > 2}
   <button class="border border-white rounded-lg px-4 py-2 hover:border-orange-svelte hover:bg-orange-svelte hover:text-white flex items-center">
     ...
   </button>
   {/if}
 
   <button class="border border-orange-svelte rounded-lg px-4 py-2 bg-orange-svelte text-white hover:bg-white hover:text-orange-svelte">
-    {page.value}
+    {page}
   </button>
 
-  {#if page.value < maxPage - 1}
+  {#if page < maxPage - 1}
   <button class="border border-white rounded-lg px-4 py-2 hover:border-orange-svelte hover:bg-orange-svelte hover:text-white flex items-center">
     ...
   </button>
   {/if}
 
-  {#if page.value < maxPage}
+  {#if page < maxPage}
   <button
     class="border border-white rounded-lg px-4 py-2 hover:border-orange-svelte hover:bg-orange-svelte hover:text-white flex items-center"
-    onclick={() => page.value = maxPage}
+    onclick={() => page = maxPage}
   >
     {maxPage}
   </button>
@@ -55,10 +55,10 @@
   <button
     class="border border-white rounded-lg p-1 hover:border-orange-svelte hover:bg-orange-svelte hover:text-white flex items-center"
     onclick={() => {
-      if (page.value >= maxPage)
+      if (page >= maxPage)
         return;
 
-      page.value++;
+      page++;
     }}
   >
     <OutlineKeyboardArrowRight width={28} height={28} />

@@ -13,7 +13,7 @@
   let activeOption = $state({ value: ActiveOptionEnum.BLOGTAG });
   let search = $state({ value: '' });
   let limit = $state(10);
-  let page = $state({ value: 1 });
+  let page = $state(1);
 
   let count = $state(0);
   let data = $state([]);
@@ -27,10 +27,18 @@
     }
 
     isLoading = false;
+
+    // Fetch count
+    const countResult = await GetCount(activeOption.value, search.value);
+    count = countResult;
+
+    // Fetch data
+    const dataResult = await GetData(activeOption.value, search.value, limit, page);
+    data = dataResult;
   })
 
   $effect(async () => {
-    search.value;
+    page;
 
     if (activeOption.value === ActiveOptionEnum.SETTINGS)
       return;
@@ -49,6 +57,13 @@
 <div class="flex">
   <MenuAdmin bind:activeOption={activeOption} />
 
-  <DisplayAdmin search={search} bind:page={page} maxPage={count === 0 ? 1 : Math.ceil(count / limit)} count={count} data={data} />
+  <DisplayAdmin
+    activeOption={activeOption}
+    search={search}
+    bind:page={page}
+    maxPage={count === 0 ? 1 : Math.ceil(count / limit)}
+    count={count}
+    data={data}
+  />
 </div>
 {/if}

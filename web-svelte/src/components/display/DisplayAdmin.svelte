@@ -2,8 +2,12 @@
   import KeyIcon from '../../components/icon/KeyIcon.svelte';
   import HorizontalCenterLayout from '../layout/HorizontalCenterLayout.svelte';
   import Pagination from '../Pagination.svelte';
+  import TableAdmin from '../table/TableAdmin.svelte';
 
-  let { search, page = $bindable(), maxPage, count, data } = $props();
+  import { ActiveOptionEnum } from '$lib/enum.js';
+  import { BlogTag } from '$lib/types.js';
+
+  let { activeOption, search, page = $bindable(), maxPage, count, data } = $props();
   let searchInput = $state('');
 
   /**
@@ -24,6 +28,13 @@
   function onBlur(event) {
     event.target.value = search.value;
   }
+
+  /**
+   * @returns {any}
+   */
+  function getColumns() {
+    if (activeOption.value === ActiveOptionEnum.BLOGTAG) return BlogTag;
+  }
 </script>
 
 <HorizontalCenterLayout>
@@ -38,6 +49,8 @@
       onblur={onBlur}
     />
   </label>
+
+  <TableAdmin columns={getColumns()} data={data} />
 
   <Pagination bind:page={page} maxPage={maxPage} />
 </HorizontalCenterLayout>
