@@ -1,11 +1,13 @@
 <script>
-  import KeyIcon from '../../components/icon/KeyIcon.svelte';
   import HorizontalCenterLayout from '../layout/HorizontalCenterLayout.svelte';
   import Pagination from '../Pagination.svelte';
   import TableAdmin from '../table/TableAdmin.svelte';
+  import RoundSearch from '../icon/RoundSearch.svelte';
 
   import { ActiveOptionEnum } from '$lib/enum.js';
   import { BlogTagColumn } from '$lib/types.js';
+  import OutlineAddCircle from '../icon/OutlineAddCircle.svelte';
+
 
   let { activeOption, search, page = $bindable(), maxPage, count, data } = $props();
   let searchInput = $state('');
@@ -38,19 +40,27 @@
 </script>
 
 <HorizontalCenterLayout>
-  <label>
-    <KeyIcon />
-    <input
-      class="outline-none grow"
-      type='text'
-      placeholder="Search"
-      value={search.value}
-      onkeydown={onKeyDown}
-      onblur={onBlur}
-    />
-  </label>
+  <div class="py-10 flex flex-col gap-y-5 items-center">
+    <div class="w-full flex items-center justify-between">
+      <label
+        class="border border-none ring-1 ring-slate-200 rounded-xl py-2 px-1 flex items-center gap-2 focus-within:ring-1 focus-within:ring-orange-svelte"
+      >
+        <RoundSearch />
+        <input
+          class="outline-none grow"
+          type='text'
+          placeholder="Search"
+          value={search.value}
+          onkeydown={onKeyDown}
+          onblur={onBlur}
+        />
+      </label>
 
-  <TableAdmin columns={getColumns()} data={data} />
+      <button><OutlineAddCircle /></button>
+    </div>
 
-  <Pagination bind:page={page} maxPage={maxPage} />
+    <TableAdmin columns={getColumns()} data={data} />
+
+    <Pagination bind:page={page} maxPage={maxPage} />
+  </div>
 </HorizontalCenterLayout>
