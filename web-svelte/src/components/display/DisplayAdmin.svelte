@@ -4,12 +4,12 @@
   import TableAdmin from '../table/TableAdmin.svelte';
   import RoundSearch from '../icon/RoundSearch.svelte';
 
-  import { ActiveOptionEnum } from '$lib/enum.js';
+  import { ActiveOptionEnum, FormStatusEnum } from '$lib/enum.js';
   import { BlogTagColumn } from '$lib/types.js';
   import OutlineAddCircle from '../icon/OutlineAddCircle.svelte';
 
 
-  let { activeOption, search, page = $bindable(), maxPage, count, data } = $props();
+  let { activeOption, formStatus = $bindable(), inputValue = $bindable(), search, page = $bindable(), maxPage, count, data } = $props();
   let searchInput = $state('');
 
   /**
@@ -56,10 +56,13 @@
         />
       </label>
 
-      <button><OutlineAddCircle /></button>
+      <button onclick={() => formStatus = FormStatusEnum.ADD}><OutlineAddCircle /></button>
     </div>
 
-    <TableAdmin columns={getColumns()} data={data} />
+    <TableAdmin
+      columns={getColumns()} data={data}
+      bind:formStatus={formStatus} bind:inputValue={inputValue}
+    />
 
     <Pagination bind:page={page} maxPage={maxPage} />
   </div>

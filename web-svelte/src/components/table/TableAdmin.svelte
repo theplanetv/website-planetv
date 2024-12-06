@@ -1,8 +1,9 @@
 <script>
-    import BaselineDelete from "../icon/BaselineDelete.svelte";
-import BaselineModeEdit from "../icon/BaselineModeEdit.svelte";
+  import { FormStatusEnum } from "$lib/enum.js";
+  import BaselineDelete from "../icon/BaselineDelete.svelte";
+  import BaselineModeEdit from "../icon/BaselineModeEdit.svelte";
 
-  let { columns, data } = $props();
+  let { columns, data, formStatus = $bindable(), inputValue = $bindable(), } = $props();
 </script>
 
 <table>
@@ -14,6 +15,7 @@ import BaselineModeEdit from "../icon/BaselineModeEdit.svelte";
       <th class="bg-slate-200 p-2">Actions</th>
     </tr>
   </thead>
+
   <tbody>
     {#if data.length > 0}
       {#each data as row}
@@ -22,14 +24,29 @@ import BaselineModeEdit from "../icon/BaselineModeEdit.svelte";
             <td>{row[key]}</td>
           {/each}
           <td>
-            <button><BaselineModeEdit /></button>
-            <button><BaselineDelete /></button>
+            <button type="button"
+              onclick={() => {
+                formStatus = FormStatusEnum.EDIT
+                console.log(formStatus);
+              }}
+            >
+              <BaselineModeEdit />
+            </button>
+
+            <button type="button"
+              onclick={() => {
+                formStatus = FormStatusEnum.DELETE
+                console.log(formStatus);
+              }}
+            >
+              <BaselineDelete />
+            </button>
           </td>
         </tr>
       {/each}
     {:else}
       <tr>
-        <td colspan={Object.keys(columns).length + 1} style="text-align: center;">No result</td>
+        <td class="text-center" colspan={Object.keys(columns).length + 1}>No result</td>
       </tr>
     {/if}
   </tbody>
