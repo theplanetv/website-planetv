@@ -1,6 +1,6 @@
 CREATE TABLE public.blog_tag (
     id   UUID PRIMARY KEY DEFAULT GEN_RANDOM_UUID(),
-    name TEXT
+    name TEXT UNIQUE
 );
 
 CREATE TABLE public.blog_file (
