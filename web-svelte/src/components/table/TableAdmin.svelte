@@ -26,8 +26,8 @@
           <td>
             <button type="button"
               onclick={() => {
-                formStatus = FormStatusEnum.EDIT
-                console.log(formStatus);
+                formStatus = FormStatusEnum.EDIT;
+                inputValue = row;
               }}
             >
               <BaselineModeEdit />
@@ -35,8 +35,8 @@
 
             <button type="button"
               onclick={() => {
-                formStatus = FormStatusEnum.DELETE
-                console.log(formStatus);
+                formStatus = FormStatusEnum.DELETE;
+                inputValue = row;
               }}
             >
               <BaselineDelete />
