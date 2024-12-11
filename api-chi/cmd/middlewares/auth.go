@@ -13,7 +13,7 @@ type AuthMiddleware struct {
 func (m *AuthMiddleware) CheckLogin(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Retrieve the token from the "Authorization" cookie
-		cookie, err := r.Cookie("Authorization")
+		cookie, err := r.Cookie("auth-token")
 		if err != nil {
 			http.Error(w, "Unauthorized: Missing token", http.StatusUnauthorized)
 			return

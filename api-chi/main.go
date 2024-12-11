@@ -26,7 +26,7 @@ func main() {
 	// CORS settings - restrict only to the allowed origins
 	r.Use(cors.Handler(cors.Options{
 		AllowedOrigins:   []string{"http://" + config.WEB_HOST + ":" + config.WEB_PORT},       // Restrict to local dev
-		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},                 // Allow necessary HTTP methods
+		AllowedMethods:   []string{"GET", "POST", "PATCH", "DELETE", "OPTIONS"},               // Allow necessary HTTP methods
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"}, // Explicitly allow headers
 		ExposedHeaders:   []string{"Link"},                                                    // Headers that can be exposed to the frontend
 		AllowCredentials: true,                                                                // Allow cookies and other credentials
