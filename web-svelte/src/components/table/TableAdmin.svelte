@@ -27,7 +27,7 @@
             <button type="button"
               onclick={() => {
                 formStatus = FormStatusEnum.EDIT;
-                inputValue = row;
+                inputValue = { ...row };
               }}
             >
               <BaselineModeEdit />
@@ -36,7 +36,7 @@
             <button type="button"
               onclick={() => {
                 formStatus = FormStatusEnum.DELETE;
-                inputValue = row;
+                inputValue = { ...row };
               }}
             >
               <BaselineDelete />

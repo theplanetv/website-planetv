@@ -5,7 +5,7 @@
   import { Create, Update, Remove } from '$lib/api/blogtag.js';
 
   let { refresh = $bindable(), activeOption, formStatus = $bindable(), inputValue } = $props();
-  let formInputValue = $state(inputValue);
+  let formInputValue = $state({ ...inputValue });
 
   /**
    * 
@@ -68,6 +68,7 @@
    */
   const handleCancel = () => {
     formStatus = FormStatusEnum.NONE;
+    formInputValue = { ...inputValue };
   };
 
   $effect(() => {
