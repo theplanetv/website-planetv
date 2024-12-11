@@ -24,7 +24,7 @@ func Test_BlogTagRoutes(t *testing.T) {
 	token, _ := service.GenerateToken(&models.Auth{Username: "admin"})
 
 	authCookie := &http.Cookie{
-		Name:  "Authorization",
+		Name:  "auth-token",
 		Value: token,
 	}
 
