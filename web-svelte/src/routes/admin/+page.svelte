@@ -12,6 +12,7 @@
 
   // UI state (change based on user interaction)
   let isLoading = $state(true);
+  let refresh = $state(false);
   let activeOption = $state(ActiveOptionEnum.BLOGTAG);
   let formStatus = $state(FormStatusEnum.NONE);
   let inputValue = $state({});
@@ -43,8 +44,12 @@
   })
 
   $effect(async () => {
+    refresh === true;
     activeOption;
     page;
+
+    // Reset refresh
+    refresh = false;
 
     if (activeOption === ActiveOptionEnum.SETTINGS)
       return;
@@ -75,6 +80,7 @@
   />
 
   <FormAdmin
+    bind:refresh={refresh}
     activeOption={activeOption}
     bind:formStatus={formStatus}
     inputValue={inputValue}

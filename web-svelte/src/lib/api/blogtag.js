@@ -59,3 +59,92 @@ export async function GetData(option, search, limit, page) {
     return {};
   }
 }
+
+/**
+ * 
+ * @param {any} input
+ * @returns {Promise}
+ */
+export async function Create(input) {
+  try {
+    const dataResponse = await fetch(`${baseUrl}/api/blogtag`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "id": input.id,
+        "name": input.name,
+      })
+    });
+
+    if (!dataResponse.ok) {
+      const errorData = await dataResponse.json();
+      return errorData;
+    }
+
+    const dataResult = await dataResponse.json();
+    return dataResult;
+  } catch (error) {
+    return {};
+  }
+}
+
+/**
+ * 
+ * @param {any} input
+ * @returns {Promise}
+ */
+export async function Update(input) {
+  try {
+    const dataResponse = await fetch(`${baseUrl}/api/blogtag`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "id": input.id,
+        "name": input.name,
+      })
+    });
+
+    if (!dataResponse.ok) {
+      const errorData = await dataResponse.json();
+      return errorData;
+    }
+
+    const dataResult = await dataResponse.json();
+    return dataResult;
+  } catch (error) {
+    return {};
+  }
+}
+
+/**
+ * 
+ * @param {*} input 
+ * @returns 
+ */
+export async function Remove(input) {
+  try {
+    const dataResponse = await fetch(`${baseUrl}/api/blogtag/${input.id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+
+    if (!dataResponse.ok) {
+      const errorData = await dataResponse.json();
+      return errorData;
+    }
+
+    const dataResult = await dataResponse.json();
+    return dataResult;
+  } catch (error) {
+    return {};
+  }
+}

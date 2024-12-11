@@ -1,18 +1,66 @@
 <script>
-  import { ActiveOptionEnum, FormStatusEnum } from '$lib/enum.js';
+  import { ActiveOptionEnum, FormStatusEnum, ApiMessageEnum } from '$lib/enum.js';
   import Button from '../button/Button.svelte';
   import HorizontalCenterLayout from '../layout/HorizontalCenterLayout.svelte';
+  import { Create, Update, Remove } from '$lib/api/blogtag.js';
 
-  let { activeOption, formStatus = $bindable(), inputValue } = $props();
+  let { refresh = $bindable(), activeOption, formStatus = $bindable(), inputValue } = $props();
   let formInputValue = $state(inputValue);
+
+  /**
+   * 
+   * @param event
+   */
+  const handleChangeName = (event) => {
+    formInputValue.name = event.target.value;
+  };
 
   /**
    *
    * @param {Event} event
    * @returns {void}
    */
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (formStatus === FormStatusEnum.ADD) {
+      const result = await Create(formInputValue);
+      if (result.message === ApiMessageEnum.CREATE_DATA_SUCCESS) {
+        alert(ApiMessageEnum.CREATE_DATA_SUCCESS);
+        formStatus = FormStatusEnum.NONE;
+        refresh = true;
+        return;
+      }
+
+      alert(ApiMessageEnum.CREATE_DATA_FAILED);
+      return;
+    }
+
+    if (formStatus === FormStatusEnum.EDIT) {
+      const result = await Update(formInputValue);
+      if (result.message === ApiMessageEnum.UPDATE_DATA_SUCCESS) {
+        alert(ApiMessageEnum.UPDATE_DATA_SUCCESS);
+        formStatus = FormStatusEnum.NONE;
+        refresh = true;
+        return;
+      }
+
+      alert(ApiMessageEnum.UPDATE_DATA_FAILED);
+      return;
+    }
+
+    if (formStatus === FormStatusEnum.DELETE) {
+      const result = await Remove(formInputValue);
+      if (result.message === ApiMessageEnum.REMOVE_DATA_SUCCESS) {
+        alert(ApiMessageEnum.REMOVE_DATA_SUCCESS);
+        formStatus = FormStatusEnum.NONE;
+        refresh = true;
+        return;
+      }
+
+      alert(ApiMessageEnum.REMOVE_DATA_FAILED);
+      return;
+    }
   };
 
   /**
@@ -25,8 +73,11 @@
   $effect(() => {
     formStatus;
 
-    if (formStatus === FormStatusEnum.ADD) {
-      formInputValue = {};
+    if (formStatus === FormStatusEnum.ADD && activeOption === ActiveOptionEnum.BLOGTAG) {
+      formInputValue = {
+        id: "",
+        name: "",
+      };
       return;
     }
 
@@ -50,23 +101,60 @@
           {#if activeOption === ActiveOptionEnum.BLOGTAG}
             {#if formStatus === FormStatusEnum.ADD}
               <div>
-                <label>Name: <input type="text" value={formInputValue.name} /></label>
+                <label
+                  class="border border-none ring-1 ring-slate-200 rounded-xl py-2 px-1 flex items-center gap-2 focus-within:ring-1 focus-within:ring-orange-svelte"
+                >
+                  Name:
+                  <input
+                    class="outline-none grow"
+                    type="text"
+                    value={formInputValue.name}
+                    onchange={handleChangeName}
+                  />
+                </label>
               </div>
             {/if}
 
             {#if formStatus === FormStatusEnum.EDIT}
               <div>
-                <label>Name: <input type="text" value={formInputValue.name} /></label>
+                <label
+                  class="border border-none ring-1 ring-slate-200 rounded-xl py-2 px-1 flex items-center gap-2 focus-within:ring-1 focus-within:ring-orange-svelte"
+                >
+                  Name:
+                  <input
+                    class="outline-none grow"
+                    type="text"
+                    value={formInputValue.name}
+                    onchange={handleChangeName}
+                  />
+                </label>
               </div>
             {/if}
 
             {#if formStatus === FormStatusEnum.DELETE}
-              <div class="flex flex-col">
-                <label>Id: <input type="text" value={formInputValue.id} readonly={true} /></label
-                >
+              <div class="flex flex-col gap-y-2">
                 <label
-                  >Name: <input type="text" value={formInputValue.name} readonly={true} /></label
+                  class="border border-none ring-1 ring-slate-200 rounded-xl py-2 px-1 flex items-center gap-2 focus-within:ring-1 focus-within:ring-orange-svelte"
                 >
+                  Id:
+                  <input
+                    class="outline-none grow"
+                    type="text"
+                    readonly={true}
+                    value={formInputValue.id}
+                  />
+                </label>
+                <label
+                  class="border border-none ring-1 ring-slate-200 rounded-xl py-2 px-1 flex items-center gap-2 focus-within:ring-1 focus-within:ring-orange-svelte"
+                >
+                  Name:
+                  <input
+                    class="outline-none grow"
+                    type="text"
+                    readonly={true}
+                    value={formInputValue.name}
+                  />
+                </label>
               </div>
             {/if}
           {/if}
