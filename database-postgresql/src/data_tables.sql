@@ -4,10 +4,8 @@ CREATE TABLE public.blog_tag (
 );
 
 CREATE TABLE public.blog_file (
-    id           UUID PRIMARY KEY DEFAULT GEN_RANDOM_UUID(),
-    filename     TEXT,
-    created_date DATE DEFAULT NOW(),
-    updated_date DATE DEFAULT NOW()
+    id       UUID PRIMARY KEY DEFAULT GEN_RANDOM_UUID(),
+    filename TEXT
 );
 
 CREATE TABLE public.blog_file_depend_tag (
