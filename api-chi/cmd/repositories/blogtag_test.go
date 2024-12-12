@@ -1,4 +1,4 @@
-package services
+package repositories
 
 import (
 	"api-chi/cmd/models"
@@ -8,36 +8,36 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_BlogTagService(t *testing.T) {
+func Test_BlogTagRepository(t *testing.T) {
 	id := ""
-	service := BlogTagService{}
+	repository := BlogTagRepository{}
 
 	t.Run("Count success", func(t *testing.T) {
 		// Connect database
-		err := service.Open()
-		defer service.Close()
+		err := repository.Open()
+		defer repository.Close()
 		assert.NoError(t, err)
 
 		// Declare input
 		search := ""
 
 		// Count database
-		count, err := service.Count(&search)
+		count, err := repository.Count(&search)
 		assert.NoError(t, err)
 		assert.Greater(t, count, 0)
 	})
 
 	t.Run("Count success with search", func(t *testing.T) {
 		// Connect database
-		err := service.Open()
-		defer service.Close()
+		err := repository.Open()
+		defer repository.Close()
 		assert.NoError(t, err)
 
 		// Declare input
 		search := "tag 1"
 
 		// Count database
-		count, err := service.Count(&search)
+		count, err := repository.Count(&search)
 		assert.NoError(t, err)
 		assert.Greater(t, count, 0)
 		assert.Less(t, count, 60)
@@ -45,8 +45,8 @@ func Test_BlogTagService(t *testing.T) {
 
 	t.Run("GetAll default success", func(t *testing.T) {
 		// Connect database
-		err := service.Open()
-		defer service.Close()
+		err := repository.Open()
+		defer repository.Close()
 		assert.NoError(t, err)
 
 		// Declare input
@@ -55,7 +55,7 @@ func Test_BlogTagService(t *testing.T) {
 		page := 1
 
 		// Count database
-		data, err := service.GetAll(&search, &limit, &page)
+		data, err := repository.GetAll(&search, &limit, &page)
 		assert.NoError(t, err)
 		assert.IsType(t, data[0], models.BlogTag{})
 		count := 0
@@ -69,8 +69,8 @@ func Test_BlogTagService(t *testing.T) {
 
 	t.Run("GetAll limit < 10 will return 10 success", func(t *testing.T) {
 		// Connect database
-		err := service.Open()
-		defer service.Close()
+		err := repository.Open()
+		defer repository.Close()
 		assert.NoError(t, err)
 
 		// Declare input
@@ -79,7 +79,7 @@ func Test_BlogTagService(t *testing.T) {
 		page := 1
 
 		// Count database
-		data, err := service.GetAll(&search, &limit, &page)
+		data, err := repository.GetAll(&search, &limit, &page)
 		assert.NoError(t, err)
 		assert.IsType(t, data[0], models.BlogTag{})
 		count := 0
@@ -93,8 +93,8 @@ func Test_BlogTagService(t *testing.T) {
 
 	t.Run("GetAll limit > 50 will return 50 success", func(t *testing.T) {
 		// Connect database
-		err := service.Open()
-		defer service.Close()
+		err := repository.Open()
+		defer repository.Close()
 		assert.NoError(t, err)
 
 		// Declare input
@@ -103,7 +103,7 @@ func Test_BlogTagService(t *testing.T) {
 		page := 1
 
 		// Count database
-		data, err := service.GetAll(&search, &limit, &page)
+		data, err := repository.GetAll(&search, &limit, &page)
 		assert.NoError(t, err)
 		assert.IsType(t, data[0], models.BlogTag{})
 		count := 0
@@ -117,8 +117,8 @@ func Test_BlogTagService(t *testing.T) {
 
 	t.Run("GetAll page < 1 will return 50 success", func(t *testing.T) {
 		// Connect database
-		err := service.Open()
-		defer service.Close()
+		err := repository.Open()
+		defer repository.Close()
 		assert.NoError(t, err)
 
 		// Declare input
@@ -127,7 +127,7 @@ func Test_BlogTagService(t *testing.T) {
 		page := 0
 
 		// Count database
-		data, err := service.GetAll(&search, &limit, &page)
+		data, err := repository.GetAll(&search, &limit, &page)
 		assert.NoError(t, err)
 		assert.IsType(t, data[0], models.BlogTag{})
 		count := 0
@@ -141,8 +141,8 @@ func Test_BlogTagService(t *testing.T) {
 
 	t.Run("GetAll with search is tag 1", func(t *testing.T) {
 		// Connect database
-		err := service.Open()
-		defer service.Close()
+		err := repository.Open()
+		defer repository.Close()
 		assert.NoError(t, err)
 
 		// Declare input
@@ -151,7 +151,7 @@ func Test_BlogTagService(t *testing.T) {
 		page := 1
 
 		// Count database
-		data, err := service.GetAll(&search, &limit, &page)
+		data, err := repository.GetAll(&search, &limit, &page)
 		assert.NoError(t, err)
 		assert.IsType(t, data[0], models.BlogTag{})
 		count := 0
@@ -165,8 +165,8 @@ func Test_BlogTagService(t *testing.T) {
 
 	t.Run("Create success", func(t *testing.T) {
 		// Connect database
-		err := service.Open()
-		defer service.Close()
+		err := repository.Open()
+		defer repository.Close()
 		assert.NoError(t, err)
 
 		// Declare input
@@ -175,7 +175,7 @@ func Test_BlogTagService(t *testing.T) {
 		}
 
 		// Create database
-		value, err := service.Create(&input)
+		value, err := repository.Create(&input)
 		assert.NoError(t, err)
 		assert.NotEmpty(t, value)
 		assert.Equal(t, value.Name, input.Name)
@@ -186,8 +186,8 @@ func Test_BlogTagService(t *testing.T) {
 
 	t.Run("Update success", func(t *testing.T) {
 		// Connect database
-		err := service.Open()
-		defer service.Close()
+		err := repository.Open()
+		defer repository.Close()
 		assert.NoError(t, err)
 
 		// Declare input
@@ -197,7 +197,7 @@ func Test_BlogTagService(t *testing.T) {
 		}
 
 		// Create database
-		value, err := service.Update(&input)
+		value, err := repository.Update(&input)
 		assert.NoError(t, err)
 		assert.NotEmpty(t, value)
 		assert.Equal(t, value.Id, input.Id)
@@ -206,12 +206,12 @@ func Test_BlogTagService(t *testing.T) {
 
 	t.Run("Remove success", func(t *testing.T) {
 		// Connect database
-		err := service.Open()
-		defer service.Close()
+		err := repository.Open()
+		defer repository.Close()
 		assert.NoError(t, err)
 
 		// Remove database
-		value, err := service.Remove(&id)
+		value, err := repository.Remove(&id)
 		assert.NoError(t, err)
 		assert.NotEmpty(t, value)
 	})
