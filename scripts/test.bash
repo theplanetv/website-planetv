@@ -40,7 +40,7 @@ test_wait_postgresql() {
 
 		"blogtag-repository" )
 		docker exec ${PROJECT_API_CHI_CONTAINER} go test -v \
-			/api-chi/cmd/repositories/blogtag.go /api-chi/cmd/repositories/blogtag_test.go
+			/api-chi/cmd/repositories/blogtag.go /api-chi/cmd/repositories/database.go /api-chi/cmd/repositories/blogtag_test.go
 		;;
 	esac
 }
