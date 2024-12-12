@@ -92,22 +92,22 @@ func (s *AuthService) Login(input *models.Auth) error {
 	}
 	bcryptCost, err := strconv.Atoi(config.AUTH_BCRYPT_COST)
 	if err != nil {
-		return fmt.Errorf("Can't set bcrypt default cost")
+		return fmt.Errorf("can't set bcrypt default cost")
 	}
 
 	// Check username
 	if input.Username != config.AUTH_USERNAME {
-		return fmt.Errorf("Username is incorrect!")
+		return fmt.Errorf("username is incorrect")
 	}
 
 	// Check password
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcryptCost)
 	if err != nil {
-		return fmt.Errorf("Error hashing password: %s", err)
+		return fmt.Errorf("error hashing password: %s", err)
 	}
 	err = bcrypt.CompareHashAndPassword(hashedPassword, []byte(config.AUTH_PASSWORD))
 	if err != nil {
-		return fmt.Errorf("Password is incorrect!")
+		return fmt.Errorf("password is incorrect")
 	}
 
 	return nil
