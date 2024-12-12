@@ -38,9 +38,9 @@ test_wait_postgresql() {
 			/api-chi/cmd/routes/auth.go /api-chi/cmd/routes/blogtag.go /api-chi/cmd/routes/blogtag_test.go
 		;;
 
-		"blogtag-service" )
+		"blogtag-repository" )
 		docker exec ${PROJECT_API_CHI_CONTAINER} go test -v \
-			/api-chi/cmd/services/blogtag.go /api-chi/cmd/services/blogtag_test.go
+			/api-chi/cmd/repositories/blogtag.go /api-chi/cmd/repositories/blogtag_test.go
 		;;
 	esac
 }
@@ -48,7 +48,11 @@ test_wait_postgresql() {
 # Print list of options
 print_list() {
 	echo "Pass wrong arguments! Here is list of arguments for docker test script"
-	echo -e "\ttest : test all unit test"
+	echo -e "\api-auth-middleware    : test api auth middleware"
+	echo -e "\api-auth-route         : test api auth route"
+	echo -e "\api-auth-service       : test api auth service"
+	echo -e "\api-blogtag-route      : test api blogtag route"
+	echo -e "\api-blogtag-repository : test api blogtag repository"
 }
 
 # Main script
@@ -72,8 +76,8 @@ if [ $# -eq 1 ]; then
 		"api-blogtag-route" )
 			test_wait_postgresql blogtag-route ;;
 
-		"api-blogtag-service" )
-			test_wait_postgresql blogtag-service ;;
+		"api-blogtag-repository" )
+			test_wait_postgresql blogtag-repository ;;
 
 		"coverage" )
 			docker exec ${PROJECT_API_CHI_CONTAINER} go test -coverprofile=coverage.out ./...
