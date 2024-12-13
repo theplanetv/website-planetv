@@ -11,13 +11,16 @@ type DatabaseRepository struct {
 }
 
 func (s *DatabaseRepository) Open() error {
+	if s.Pool != nil {
+		return nil
+	}
+
 	config.LoadDatabaseConfig()
 	conn, err := pgxpool.New(config.CTX, config.POSTGRES_URL)
 	if err != nil {
 		return err
 	}
 
-	// Gán kết nối vào struct thông qua field Pool
 	s.Pool = conn
 	return nil
 }
