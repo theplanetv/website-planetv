@@ -42,6 +42,11 @@ test_wait_postgresql() {
 		docker exec ${PROJECT_API_CHI_CONTAINER} go test -v \
 			/api-chi/cmd/repositories/blogtag.go /api-chi/cmd/repositories/database.go /api-chi/cmd/repositories/blogtag_test.go
 		;;
+
+		"database-repository" )
+		docker exec ${PROJECT_API_CHI_CONTAINER} go test -v \
+			/api-chi/cmd/repositories/database.go /api-chi/cmd/repositories/database_test.go
+		;;
 	esac
 }
 
@@ -78,6 +83,9 @@ if [ $# -eq 1 ]; then
 
 		"api-blogtag-repository" )
 			test_wait_postgresql blogtag-repository ;;
+
+		"api-database-repository" )
+			test_wait_postgresql database-repository ;;
 
 		"coverage" )
 			docker exec ${PROJECT_API_CHI_CONTAINER} go test -coverprofile=coverage.out ./...
