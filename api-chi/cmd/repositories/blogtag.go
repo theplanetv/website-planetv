@@ -3,6 +3,7 @@ package repositories
 import (
 	"api-chi/cmd/config"
 	"api-chi/cmd/models"
+	"fmt"
 
 	"github.com/jackc/pgx/v5"
 )
@@ -12,6 +13,11 @@ type BlogTagRepository struct {
 }
 
 func (s *BlogTagRepository) Open() error {
+	if s.DB == nil {
+		fmt.Println("Database is nil")
+		s.DB = &DatabaseRepository{}
+	}
+
 	return s.DB.Open()
 }
 

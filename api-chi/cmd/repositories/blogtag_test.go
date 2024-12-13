@@ -11,13 +11,10 @@ import (
 func Test_BlogTagRepository(t *testing.T) {
 	id := ""
 	repository := BlogTagRepository{}
+	repository.Open()
+	defer repository.Close()
 
 	t.Run("Count success", func(t *testing.T) {
-		// Connect database
-		err := repository.Open()
-		defer repository.Close()
-		assert.NoError(t, err)
-
 		// Declare input
 		search := ""
 
@@ -28,11 +25,6 @@ func Test_BlogTagRepository(t *testing.T) {
 	})
 
 	t.Run("Count success with search", func(t *testing.T) {
-		// Connect database
-		err := repository.Open()
-		defer repository.Close()
-		assert.NoError(t, err)
-
 		// Declare input
 		search := "tag 1"
 
@@ -44,11 +36,6 @@ func Test_BlogTagRepository(t *testing.T) {
 	})
 
 	t.Run("GetAll default success", func(t *testing.T) {
-		// Connect database
-		err := repository.Open()
-		defer repository.Close()
-		assert.NoError(t, err)
-
 		// Declare input
 		search := ""
 		limit := 10
@@ -68,11 +55,6 @@ func Test_BlogTagRepository(t *testing.T) {
 	})
 
 	t.Run("GetAll limit < 10 will return 10 success", func(t *testing.T) {
-		// Connect database
-		err := repository.Open()
-		defer repository.Close()
-		assert.NoError(t, err)
-
 		// Declare input
 		search := ""
 		limit := 9
@@ -92,11 +74,6 @@ func Test_BlogTagRepository(t *testing.T) {
 	})
 
 	t.Run("GetAll limit > 50 will return 50 success", func(t *testing.T) {
-		// Connect database
-		err := repository.Open()
-		defer repository.Close()
-		assert.NoError(t, err)
-
 		// Declare input
 		search := ""
 		limit := 51
@@ -116,11 +93,6 @@ func Test_BlogTagRepository(t *testing.T) {
 	})
 
 	t.Run("GetAll page < 1 will return 50 success", func(t *testing.T) {
-		// Connect database
-		err := repository.Open()
-		defer repository.Close()
-		assert.NoError(t, err)
-
 		// Declare input
 		search := ""
 		limit := 10
@@ -140,11 +112,6 @@ func Test_BlogTagRepository(t *testing.T) {
 	})
 
 	t.Run("GetAll with search is tag 1", func(t *testing.T) {
-		// Connect database
-		err := repository.Open()
-		defer repository.Close()
-		assert.NoError(t, err)
-
 		// Declare input
 		search := "tag 1"
 		limit := 20
@@ -164,11 +131,6 @@ func Test_BlogTagRepository(t *testing.T) {
 	})
 
 	t.Run("Create success", func(t *testing.T) {
-		// Connect database
-		err := repository.Open()
-		defer repository.Close()
-		assert.NoError(t, err)
-
 		// Declare input
 		input := models.BlogTag{
 			Name: "test tag",
@@ -185,18 +147,13 @@ func Test_BlogTagRepository(t *testing.T) {
 	})
 
 	t.Run("Update success", func(t *testing.T) {
-		// Connect database
-		err := repository.Open()
-		defer repository.Close()
-		assert.NoError(t, err)
-
 		// Declare input
 		input := models.BlogTag{
 			Id:   id,
 			Name: "this is test tag",
 		}
 
-		// Create database
+		// Update database
 		value, err := repository.Update(&input)
 		assert.NoError(t, err)
 		assert.NotEmpty(t, value)
@@ -205,11 +162,6 @@ func Test_BlogTagRepository(t *testing.T) {
 	})
 
 	t.Run("Remove success", func(t *testing.T) {
-		// Connect database
-		err := repository.Open()
-		defer repository.Close()
-		assert.NoError(t, err)
-
 		// Remove database
 		value, err := repository.Remove(&id)
 		assert.NoError(t, err)
