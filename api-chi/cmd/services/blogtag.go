@@ -5,23 +5,14 @@ import (
 	"api-chi/cmd/models"
 
 	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 type BlogTagService struct {
-	Conn *pgxpool.Pool
+	Conn DatabaseService
 }
 
 func (s *BlogTagService) Open() error {
-	config.LoadDatabaseConfig()
-	conn, err := pgxpool.New(config.CTX, config.POSTGRES_URL)
-	if err != nil {
-		return err
-	}
-
-	// Assign connection
-	s.Conn = conn
-	return nil
+	return s.Conn.Open()
 }
 
 func (s *BlogTagService) Close() {
