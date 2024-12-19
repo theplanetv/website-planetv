@@ -40,7 +40,12 @@ test_wait_postgresql() {
 
 		"blogtag-service" )
 		docker exec ${PROJECT_API_CHI_CONTAINER} go test -v \
-			/api-chi/cmd/services/blogtag.go /api-chi/cmd/services/blogtag_test.go
+			/api-chi/cmd/services/blogtag.go /api-chi/cmd/services/blogtag_test.go /api-chi/cmd/services/database.go
+		;;
+
+		"database-service" )
+		docker exec ${PROJECT_API_CHI_CONTAINER} go test -v \
+			/api-chi/cmd/services/database.go /api-chi/cmd/services/database_test.go
 		;;
 	esac
 }
@@ -74,6 +79,9 @@ if [ $# -eq 1 ]; then
 
 		"api-blogtag-service" )
 			test_wait_postgresql blogtag-service ;;
+
+		"api-database-service" )
+			test_wait_postgresql database-service ;;
 
 		"coverage" )
 			docker exec ${PROJECT_API_CHI_CONTAINER} go test -coverprofile=coverage.out ./...
