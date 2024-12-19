@@ -32,6 +32,25 @@ jobs:
       run: nix develop .
       if: always()
 
+  test-auth-middleware-docker:
+    name: Build and test auth middleware docker
+    runs-on: ubuntu-24.04
+    needs: [ build-docker ]
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: Setup Docker, Docker compose and build start
+      uses: hoverkraft-tech/compose-action@v2.0.1
+      with:
+        services: |
+          database-postgresql
+          api-chi
+
+    - name: Test api-chi auth middleware
+      run: sh scripts/test.bash api-auth-middleware
+
   test-auth-route-docker:
     name: Build and test auth route docker
     runs-on: ubuntu-24.04
