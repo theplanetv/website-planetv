@@ -40,7 +40,7 @@ func TestCheckLogin(t *testing.T) {
 
 		// Create a request with the token in a cookie
 		req := httptest.NewRequest("GET", "/", nil)
-		req.AddCookie(&http.Cookie{Name: "Authorization", Value: tokenString})
+		req.AddCookie(&http.Cookie{Name: "auth-token", Value: tokenString})
 		rr := httptest.NewRecorder()
 
 		// Run the middleware
@@ -74,7 +74,7 @@ func TestCheckLogin(t *testing.T) {
 
 		// Create a request with the expired token in a cookie
 		req := httptest.NewRequest("GET", "/", nil)
-		req.AddCookie(&http.Cookie{Name: "Authorization", Value: tokenString})
+		req.AddCookie(&http.Cookie{Name: "auth-token", Value: tokenString})
 		rr := httptest.NewRecorder()
 
 		// Run the middleware
