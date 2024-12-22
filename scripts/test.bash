@@ -33,6 +33,16 @@ test_wait_postgresql() {
 	echo "PostgreSQL is ready after $attempt_count attempts. Running the test..."
 
 	case $1 in
+		"blogfile-route" )
+		docker exec ${PROJECT_API_CHI_CONTAINER} go test -v \
+			/api-chi/cmd/routes/auth.go /api-chi/cmd/routes/blogfile.go /api-chi/cmd/routes/blogfile_test.go
+		;;
+
+		"blogfile-service" )
+		docker exec ${PROJECT_API_CHI_CONTAINER} go test -v \
+			/api-chi/cmd/services/blogfile.go /api-chi/cmd/services/blogfile_test.go /api-chi/cmd/services/database.go
+		;;
+
 		"blogtag-route" )
 		docker exec ${PROJECT_API_CHI_CONTAINER} go test -v \
 			/api-chi/cmd/routes/auth.go /api-chi/cmd/routes/blogtag.go /api-chi/cmd/routes/blogtag_test.go
@@ -73,6 +83,12 @@ if [ $# -eq 1 ]; then
 		docker exec ${PROJECT_API_CHI_CONTAINER} go test -v \
 			/api-chi/cmd/services/auth.go /api-chi/cmd/services/auth_test.go
 		;;
+
+		"api-blogfile-route" )
+			test_wait_postgresql blogfile-route ;;
+
+		"api-blogfile-service" )
+			test_wait_postgresql blogfile-service ;;
 
 		"api-blogtag-route" )
 			test_wait_postgresql blogtag-route ;;
