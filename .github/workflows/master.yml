@@ -70,6 +70,25 @@ jobs:
     - name: Test api-chi auth route
       run: sh scripts/test.bash api-auth-route
 
+  test-blogfile-route-docker:
+    name: Build and test blogfile route docker
+    runs-on: ubuntu-24.04
+    needs: [ build-docker ]
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: Setup Docker, Docker compose and build start
+      uses: hoverkraft-tech/compose-action@v2.0.1
+      with:
+        services: |
+          database-postgresql
+          api-chi
+
+    - name: Test api-chi blogfile route
+      run: sh scripts/test.bash api-blogfile-route
+
   test-blogtag-route-docker:
     name: Build and test blogtag route docker
     runs-on: ubuntu-24.04
@@ -106,6 +125,25 @@ jobs:
 
     - name: Test api-chi auth service
       run: sh scripts/test.bash api-auth-service
+
+  test-blogfile-service-docker:
+    name: Build and test blogfile service docker
+    runs-on: ubuntu-24.04
+    needs: [ build-docker ]
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: Setup Docker, Docker compose and build start
+      uses: hoverkraft-tech/compose-action@v2.0.1
+      with:
+        services: |
+          database-postgresql
+          api-chi
+
+    - name: Test api-chi blogfile service
+      run: sh scripts/test.bash api-blogfile-service
 
   test-blogtag-service-docker:
     name: Build and test blogtag service docker
