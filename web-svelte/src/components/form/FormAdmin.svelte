@@ -2,7 +2,7 @@
   import { ActiveOptionEnum, FormStatusEnum, ApiMessageEnum } from '$lib/enum.js';
   import Button from '../button/Button.svelte';
   import HorizontalCenterLayout from '../layout/HorizontalCenterLayout.svelte';
-  import { Create, Update, Remove } from '$lib/api/blogtag.js';
+  import api from '$lib/api/api.js';
 
   let { refresh = $bindable(), activeOption, formStatus = $bindable(), inputValue } = $props();
   let formInputValue = $state({ ...inputValue });
@@ -16,6 +16,14 @@
   };
 
   /**
+   * 
+   * @param event
+   */
+  const handleChangeFilename = (event) => {
+    formInputValue.filename = event.target.value;
+  };
+
+  /**
    *
    * @param {Event} event
    * @returns {void}
@@ -24,7 +32,7 @@
     event.preventDefault();
 
     if (formStatus === FormStatusEnum.ADD) {
-      const result = await Create(formInputValue);
+      const result = await api.Create(activeOption, formInputValue);
       if (result.message === ApiMessageEnum.CREATE_DATA_SUCCESS) {
         alert(ApiMessageEnum.CREATE_DATA_SUCCESS);
         formStatus = FormStatusEnum.NONE;
@@ -37,7 +45,7 @@
     }
 
     if (formStatus === FormStatusEnum.EDIT) {
-      const result = await Update(formInputValue);
+      const result = await api.Update(activeOption, formInputValue);
       if (result.message === ApiMessageEnum.UPDATE_DATA_SUCCESS) {
         alert(ApiMessageEnum.UPDATE_DATA_SUCCESS);
         formStatus = FormStatusEnum.NONE;
@@ -50,7 +58,7 @@
     }
 
     if (formStatus === FormStatusEnum.DELETE) {
-      const result = await Remove(formInputValue);
+      const result = await api.Remove(activeOption, formInputValue);
       if (result.message === ApiMessageEnum.REMOVE_DATA_SUCCESS) {
         alert(ApiMessageEnum.REMOVE_DATA_SUCCESS);
         formStatus = FormStatusEnum.NONE;
@@ -78,6 +86,14 @@
       formInputValue = {
         id: "",
         name: "",
+      };
+      return;
+    }
+
+    if (formStatus === FormStatusEnum.ADD && activeOption === ActiveOptionEnum.BLOGFILE) {
+      formInputValue = {
+        id: "",
+        filename: "",
       };
       return;
     }
@@ -159,6 +175,70 @@
               </div>
             {/if}
           {/if}
+
+
+          <!-- Blogfile -->
+          {#if activeOption === ActiveOptionEnum.BLOGFILE}
+            {#if formStatus === FormStatusEnum.ADD}
+              <div>
+                <label
+                  class="border border-none ring-1 ring-slate-200 rounded-xl py-2 px-1 flex items-center gap-2 focus-within:ring-1 focus-within:ring-orange-svelte"
+                >
+                  Filename:
+                  <input
+                    class="outline-none grow"
+                    type="text"
+                    value={formInputValue.filename}
+                    onchange={handleChangeFilename}
+                  />
+                </label>
+              </div>
+            {/if}
+
+            {#if formStatus === FormStatusEnum.EDIT}
+              <div>
+                <label
+                  class="border border-none ring-1 ring-slate-200 rounded-xl py-2 px-1 flex items-center gap-2 focus-within:ring-1 focus-within:ring-orange-svelte"
+                >
+                Filename:
+                  <input
+                    class="outline-none grow"
+                    type="text"
+                    value={formInputValue.filename}
+                    onchange={handleChangeFilename}
+                  />
+                </label>
+              </div>
+            {/if}
+
+            {#if formStatus === FormStatusEnum.DELETE}
+              <div class="flex flex-col gap-y-2">
+                <label
+                  class="border border-none ring-1 ring-slate-200 rounded-xl py-2 px-1 flex items-center gap-2 focus-within:ring-1 focus-within:ring-orange-svelte"
+                >
+                  Id:
+                  <input
+                    class="outline-none grow"
+                    type="text"
+                    readonly={true}
+                    value={formInputValue.id}
+                  />
+                </label>
+                <label
+                  class="border border-none ring-1 ring-slate-200 rounded-xl py-2 px-1 flex items-center gap-2 focus-within:ring-1 focus-within:ring-orange-svelte"
+                >
+                  Filename:
+                  <input
+                    class="outline-none grow"
+                    type="text"
+                    readonly={true}
+                    value={formInputValue.filename}
+                  />
+                </label>
+              </div>
+            {/if}
+          {/if}
+
 
           <div class="flex flex-row items-center justify-between">
             <Button type="submit">Submit</Button>

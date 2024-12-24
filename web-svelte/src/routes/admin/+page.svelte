@@ -3,7 +3,7 @@
   import { onMount } from 'svelte';
 
   import { CheckLogin } from '$lib/api/auth.js';
-  import { GetCount, GetData } from '$lib/api/blogtag.js';
+  import api from '$lib/api/api.js';
 
   import { ActiveOptionEnum, FormStatusEnum } from '$lib/enum.js';
   import DisplayAdmin from '../../components/display/DisplayAdmin.svelte';
@@ -16,7 +16,7 @@
   let activeOption = $state(ActiveOptionEnum.BLOGTAG);
   let formStatus = $state(FormStatusEnum.NONE);
   let inputValue = $state({});
-  let search = $state({ value: '' });
+  let search = $state('');
   let limit = $state(10);
   let page = $state(1);
 
@@ -35,11 +35,11 @@
     isLoading = false;
 
     // Fetch count
-    const countResult = await GetCount(activeOption, search.value);
+    const countResult = await api.GetCount(activeOption, search);
     count = countResult;
 
     // Fetch data
-    const dataResult = await GetData(activeOption, search.value, limit, page);
+    const dataResult = await api.GetData(activeOption, search, limit, page);
     data = dataResult;
   })
 
@@ -55,11 +55,11 @@
       return;
 
     // Fetch count
-    const countResult = await GetCount(activeOption, search.value);
+    const countResult = await api.GetCount(activeOption, search);
     count = countResult;
 
     // Fetch data
-    const dataResult = await GetData(activeOption, search.value, limit, page);
+    const dataResult = await api.GetData(activeOption, search, limit, page);
     data = dataResult;
   });
 </script>

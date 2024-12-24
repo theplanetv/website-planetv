@@ -24,6 +24,20 @@
     </button>
 
     <button
+      class={`py-2 
+        ${activeOption === ActiveOptionEnum.BLOGFILE ?
+        "bg-orange-svelte text-white" :
+        ""
+        }`
+      }
+      onclick={() => {
+        activeOption = ActiveOptionEnum.BLOGFILE
+      }}
+    >
+      File
+    </button>
+
+    <button
     class={`py-2 
       ${activeOption === ActiveOptionEnum.SETTINGS ?
       "bg-orange-svelte text-white" :

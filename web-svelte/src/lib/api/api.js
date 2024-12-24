@@ -1,4 +1,5 @@
 import { env } from "$env/dynamic/public";
+import { HandleJSON } from "./utils.js";
 
 const baseUrl = env.PUBLIC_SVELTE_API_BASE_URL;
 
@@ -8,9 +9,9 @@ const baseUrl = env.PUBLIC_SVELTE_API_BASE_URL;
  * @param {string} search 
  * @returns {Promise}
  */
-export async function GetCount(option, search) {
+async function GetCount(activeOption, search) {
   try {
-    const countResponse = await fetch(`${baseUrl}/api/${option}/count?search=${search}`, {
+    const countResponse = await fetch(`${baseUrl}/api/${activeOption}/count?search=${search}`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -38,9 +39,9 @@ export async function GetCount(option, search) {
  * @param {number} page 
  * @returns {Promise}
  */
-export async function GetData(option, search, limit, page) {
+async function GetData(activeOption, search, limit, page) {
   try {
-    const dataResponse = await fetch(`${baseUrl}/api/${option}?search=${search}&limit=${limit}&page=${page}`, {
+    const dataResponse = await fetch(`${baseUrl}/api/${activeOption}?search=${search}&limit=${limit}&page=${page}`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -65,18 +66,15 @@ export async function GetData(option, search, limit, page) {
  * @param {any} input
  * @returns {Promise}
  */
-export async function Create(input) {
+async function Create(activeOption, input) {
   try {
-    const dataResponse = await fetch(`${baseUrl}/api/blogtag`, {
+    const dataResponse = await fetch(`${baseUrl}/api/${activeOption}`, {
       method: 'POST',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        "id": input.id,
-        "name": input.name,
-      })
+      body: HandleJSON(activeOption, input),
     });
 
     if (!dataResponse.ok) {
@@ -96,18 +94,15 @@ export async function Create(input) {
  * @param {any} input
  * @returns {Promise}
  */
-export async function Update(input) {
+async function Update(activeOption, input) {
   try {
-    const dataResponse = await fetch(`${baseUrl}/api/blogtag`, {
+    const dataResponse = await fetch(`${baseUrl}/api/${activeOption}`, {
       method: 'PATCH',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        "id": input.id,
-        "name": input.name,
-      })
+      body: HandleJSON(activeOption, input),
     });
 
     if (!dataResponse.ok) {
@@ -124,12 +119,12 @@ export async function Update(input) {
 
 /**
  * 
- * @param {*} input 
+ * @param {any} input 
  * @returns 
  */
-export async function Remove(input) {
+async function Remove(activeOption, input) {
   try {
-    const dataResponse = await fetch(`${baseUrl}/api/blogtag/${input.id}`, {
+    const dataResponse = await fetch(`${baseUrl}/api/${activeOption}/${input.id}`, {
       method: 'DELETE',
       credentials: 'include',
       headers: {
@@ -147,4 +142,12 @@ export async function Remove(input) {
   } catch (error) {
     return {};
   }
+}
+
+export default {
+  GetCount,
+  GetData,
+  Create,
+  Update,
+  Remove
 }

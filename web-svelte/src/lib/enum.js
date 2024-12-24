@@ -1,5 +1,6 @@
 export const ActiveOptionEnum = Object.freeze({
   BLOGTAG: "blogtag",
+  BLOGFILE: "blogfile",
   SETTINGS: "settings"
 })
 

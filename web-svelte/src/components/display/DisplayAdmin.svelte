@@ -5,7 +5,7 @@
   import RoundSearch from '../icon/RoundSearch.svelte';
 
   import { ActiveOptionEnum, FormStatusEnum } from '$lib/enum.js';
-  import { BlogTagColumn } from '$lib/types.js';
+  import { BlogFileColumn, BlogTagColumn } from '$lib/types.js';
   import OutlineAddCircle from '../icon/OutlineAddCircle.svelte';
 
 
@@ -36,6 +36,7 @@
    */
   function getColumns() {
     if (activeOption === ActiveOptionEnum.BLOGTAG) return BlogTagColumn;
+    if (activeOption === ActiveOptionEnum.BLOGFILE) return BlogFileColumn;
   }
 </script>
 
