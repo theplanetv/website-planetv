@@ -45,14 +45,3 @@ services:
     networks:
       network:
         ipv4_address: ${API_CHI_PUBLIC_HOST}
-
-  web-svelte:
-    build:
-      dockerfile: ./docker/web-svelte/Dockerfile
-    environment:
-      PUBLIC_SVELTE_API_BASE_URL: ${PUBLIC_SVELTE_API_BASE_URL}
-    ports:
-      - '${SVELTE_PUBLIC_PORT}:${SVELTE_PORT}'
-    networks:
-      network:
-        ipv4_address: ${SVELTE_PUBLIC_HOST}
