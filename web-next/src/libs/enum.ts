@@ -4,3 +4,8 @@ export enum MenuEnum {
   PROJECTS = "projects",
   BLOGS = "blogs",
 }
+
+export enum MenuAdminEnum {
+  TAG = "blogtag",
+  FILE = "blogfile",
+}
