@@ -45,3 +45,9 @@ services:
     networks:
       network:
         ipv4_address: ${API_CHI_PUBLIC_HOST}
+
+  web-next:
+    build:
+      dockerfile: ./docker/web-next/Dockerfile
+    ports:
+      - '${WEB_NEXT_PORT}:3000'
