@@ -18,11 +18,11 @@
             mkShell {
               nativeBuildInputs = [
                 # Development tools
-                dbeaver-bin
-                bun
                 go
+                nodejs
 
                 # Other tools
+                dbeaver-bin
                 scc
               ];
             };
