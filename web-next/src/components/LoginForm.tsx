@@ -4,7 +4,7 @@ import { Button, Input, PasswordInput, Stack, Title } from "@mantine/core";
 import { FormEvent, JSX, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { login } from "@/libs/api/login";
+import { login } from "@/libs/api/auth";
 
 export default function Login(): JSX.Element {
   const router = useRouter();

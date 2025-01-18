@@ -11,5 +11,6 @@ export enum MenuAdminEnum {
 }
 
 export enum ResponseEnum {
+  AUTH_SUCCESS = "Authorize success!",
   LOGIN_SUCCESS = "Login success!"
 }
