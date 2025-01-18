@@ -39,7 +39,7 @@ services:
 
       # Web
       WEB_HOST: ${LOCALHOST}
-      WEB_PORT: ${SVELTE_PUBLIC_PORT}
+      WEB_PORT: ${WEB_NEXT_PUBLIC_PORT}
     ports:
       - '${API_CHI_PUBLIC_PORT}:${API_CHI_PORT}'
     networks:
@@ -49,5 +49,7 @@ services:
   web-next:
     build:
       dockerfile: ./docker/web-next/Dockerfile
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
     ports:
-      - '${WEB_NEXT_PORT}:3000'
+      - '${WEB_NEXT_PUBLIC_PORT}:3000'
