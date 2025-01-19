@@ -3,4 +3,3 @@
 
 -- Create functions
 \i /docker-entrypoint-initdb.d/src/functions/blog_tag.sql
-\i /docker-entrypoint-initdb.d/src/functions/blog_file.sql

@@ -3,19 +3,23 @@ CREATE TABLE public.blog_tag (
     name TEXT UNIQUE
 );
 
-CREATE TABLE public.blog_file (
-    id       UUID PRIMARY KEY DEFAULT GEN_RANDOM_UUID(),
-    filename TEXT
+CREATE TABLE public.blog_post (
+    id         UUID PRIMARY KEY DEFAULT GEN_RANDOM_UUID(),
+    title      TEXT,
+    slugs      TEXT UNIQUE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    is_draft   BOOLEAN DEFAULT TRUE
 );
 
-CREATE TABLE public.blog_file_depend_tag (
-    id          UUID PRIMARY KEY DEFAULT GEN_RANDOM_UUID(),
-    blogtag_id  UUID,
-    blogfile_id UUID,
-    CONSTRAINT fk_tag_for_blog_file_depend_tag
-        FOREIGN KEY (blogtag_id)
+CREATE TABLE public.blog_post_tag (
+    id      UUID PRIMARY KEY DEFAULT GEN_RANDOM_UUID(),
+    tag_id  UUID,
+    post_id UUID,
+    CONSTRAINT fk_tag_for_blog_post_tag
+        FOREIGN KEY (tag_id)
         REFERENCES public.blog_tag(id),
-    CONSTRAINT fk_file_for_blog_file_depend_tag
-        FOREIGN KEY (blogfile_id)
-        REFERENCES public.blog_file(id)
+    CONSTRAINT fk_post_for_blog_post_tag
+        FOREIGN KEY (post_id)
+        REFERENCES public.blog_post(id)
 );
