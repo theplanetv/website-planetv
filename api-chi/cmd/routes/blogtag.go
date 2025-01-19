@@ -11,7 +11,7 @@ func BlogTagRoutes(r chi.Router) {
 	controller := controllers.BlogTagController{}
 	authMiddleware := middlewares.AuthMiddleware{}
 
-	r.Route("/blogtag", func(r chi.Router) {
+	r.Route("/blog/tags", func(r chi.Router) {
 		r.Get("/count", controller.Count)
 		r.Get("/", controller.GetAll)
 
