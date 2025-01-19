@@ -1,5 +1,5 @@
 import { ResponseEnum } from "@/libs/enum";
-import { API_URL } from "../config";
+import { API_URL } from "@/libs/config";
 
 export async function login(inputUsername: string, inputPassword: string): Promise<boolean> {
   try {
