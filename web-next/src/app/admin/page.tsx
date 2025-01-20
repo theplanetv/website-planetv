@@ -9,13 +9,19 @@ import { MenuAdminEnum } from "@/libs/enum";
 import MenuAdmin from "@/components/MenuAdmin";
 
 import { verify } from "@/libs/api/auth";
+import blogtag from "@/libs/api/blogtag";
+import DisplayAdmin from "@/components/display/DisplayAdmin";
 
 export default function Admin(): JSX.Element {
   const router = useRouter();
 
-  const [menuChoose, setMenuChoose] = useState<MenuAdminEnum>(MenuAdminEnum.TAG);
+  const [menuChoose, setMenuChoose] = useState(MenuAdminEnum.TAG);
   const [isVisible, { toggle }] = useDisclosure(true);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [isSuccessLoadData, setIsSuccessLoadData] = useState(false); 
+  const [limit, setLimit] = useState(10);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +30,12 @@ export default function Admin(): JSX.Element {
         router.push("/login");
       } else {
         setIsLoading(false);
+      }
+
+      const { data, success } = await blogtag.count();
+      if (success === true) {
+        setCount(data);
+        setIsSuccessLoadData(true);
       }
     };
     fetchData();
@@ -44,7 +56,7 @@ export default function Admin(): JSX.Element {
         <MenuAdmin isVisible={isVisible} menuChoose={menuChoose} setMenuChoose={setMenuChoose} />
       </div>
 
-
+      <DisplayAdmin count={count} limit={limit} isSuccessLoadData={isSuccessLoadData} />
     </Flex>
   );
 }
