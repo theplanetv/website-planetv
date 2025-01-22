@@ -12,25 +12,29 @@ export default function Login(): JSX.Element {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const submitLogin = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
+  const submitLogin = async (
+    event: FormEvent<HTMLFormElement>,
+  ): Promise<void> => {
     event.preventDefault();
 
     const responseResult = await login(username, password);
     if (responseResult === true) {
       router.push("/admin");
     }
-  }
+  };
 
   return (
     <form onSubmit={submitLogin}>
       <Stack>
-        <Title order={1} className="header">Login</Title>
+        <Title order={1} className="header">
+          Login
+        </Title>
 
         <Input
           placeholder="username"
           value={username}
           onChange={(event) => {
-          setUsername(event.target.value);
+            setUsername(event.target.value);
           }}
         />
 
@@ -38,11 +42,13 @@ export default function Login(): JSX.Element {
           placeholder="password"
           value={password}
           onChange={(event) => {
-                  setPassword(event.target.value);
+            setPassword(event.target.value);
           }}
         />
 
-        <Button variant="filled" type="submit">Login</Button>
+        <Button variant="filled" type="submit">
+          Login
+        </Button>
       </Stack>
     </form>
   );

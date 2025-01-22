@@ -1,18 +1,21 @@
 import { ResponseEnum } from "@/libs/enum";
 import { API_URL } from "@/libs/config";
 
-export async function login(inputUsername: string, inputPassword: string): Promise<boolean> {
+export async function login(
+  inputUsername: string,
+  inputPassword: string,
+): Promise<boolean> {
   try {
     const response = await fetch(`${API_URL}/auth/login`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         username: inputUsername,
         password: inputPassword,
       }),
-      credentials: 'include',
+      credentials: "include",
     });
 
     if (!response.ok) {
@@ -34,11 +37,11 @@ export async function login(inputUsername: string, inputPassword: string): Promi
 export async function verify(): Promise<boolean> {
   try {
     const response = await fetch(`${API_URL}/auth/verify`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      credentials: 'include',
+      credentials: "include",
     });
 
     if (!response.ok) {

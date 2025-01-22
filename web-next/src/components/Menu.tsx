@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { NavLink } from '@mantine/core';
+import { NavLink } from "@mantine/core";
 import { ClipboardList, FolderDot, House, UserRound } from "lucide-react";
 
 import { MenuEnum } from "@/libs/enum";
@@ -9,9 +9,13 @@ type Props = {
   isVisible: boolean;
   menuChoose: MenuEnum;
   setMenuChoose: (menuChoose: MenuEnum) => void;
-}
+};
 
-export default function Menu({ isVisible, menuChoose, setMenuChoose }: Props): JSX.Element {
+export default function Menu({
+  isVisible,
+  menuChoose,
+  setMenuChoose,
+}: Props): JSX.Element {
   return (
     <>
       {isVisible && (

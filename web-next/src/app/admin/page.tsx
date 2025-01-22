@@ -19,7 +19,7 @@ export default function Admin(): JSX.Element {
   const [isVisible, { toggle }] = useDisclosure(true);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [isSuccessLoadData, setIsSuccessLoadData] = useState(false); 
+  const [isSuccessLoadData, setIsSuccessLoadData] = useState(false);
   const [limit, setLimit] = useState(10);
   const [count, setCount] = useState(0);
 
@@ -52,11 +52,23 @@ export default function Admin(): JSX.Element {
   return (
     <Flex>
       <div>
-        <Burger opened={isVisible} onClick={toggle} aria-label="Toggle navigation" />
-        <MenuAdmin isVisible={isVisible} menuChoose={menuChoose} setMenuChoose={setMenuChoose} />
+        <Burger
+          opened={isVisible}
+          onClick={toggle}
+          aria-label="Toggle navigation"
+        />
+        <MenuAdmin
+          isVisible={isVisible}
+          menuChoose={menuChoose}
+          setMenuChoose={setMenuChoose}
+        />
       </div>
 
-      <DisplayAdmin count={count} limit={limit} isSuccessLoadData={isSuccessLoadData} />
+      <DisplayAdmin
+        count={count}
+        limit={limit}
+        isSuccessLoadData={isSuccessLoadData}
+      />
     </Flex>
   );
 }

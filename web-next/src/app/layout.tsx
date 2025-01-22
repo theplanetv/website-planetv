@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 
-
-import '@mantine/core/styles.css';
-import { createTheme, MantineProvider } from '@mantine/core';
+import "@mantine/core/styles.css";
+import { createTheme, MantineProvider } from "@mantine/core";
 
 const theme = createTheme({
   /** Put your mantine theme override here */
@@ -21,9 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <MantineProvider theme={theme}>
-          {children}
-        </MantineProvider>
+        <MantineProvider theme={theme}>{children}</MantineProvider>
       </body>
     </html>
   );

@@ -2,18 +2,18 @@ import { ResponseEnum } from "@/libs/enum";
 import { API_URL } from "@/libs/config";
 
 type ReturnData = {
-  data: number
-  success: boolean
-}
+  data: number;
+  success: boolean;
+};
 
 async function count(): Promise<ReturnData> {
   try {
     const response = await fetch(`${API_URL}/blog/tags/count?search=`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      credentials: 'include',
+      credentials: "include",
     });
 
     if (!response.ok) {
@@ -45,5 +45,5 @@ async function count(): Promise<ReturnData> {
 }
 
 export default {
-  count
-}
+  count,
+};
