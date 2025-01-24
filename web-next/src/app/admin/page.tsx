@@ -21,7 +21,10 @@ export default function Admin(): JSX.Element {
 
   const [isSuccessLoadData, setIsSuccessLoadData] = useState(false);
   const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
   const [count, setCount] = useState(0);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,9 +35,15 @@ export default function Admin(): JSX.Element {
         setIsLoading(false);
       }
 
-      const { data, success } = await blogtag.count();
-      if (success === true) {
-        setCount(data);
+      const resultCount = await blogtag.Count();
+      if (resultCount.success === true) {
+        setCount(resultCount.data);
+        setIsSuccessLoadData(true);
+      }
+
+      const resultData = await blogtag.GetData(search, limit, page);
+      if (resultData.success === true) {
+        setData(resultData.data);
         setIsSuccessLoadData(true);
       }
     };
@@ -67,6 +76,8 @@ export default function Admin(): JSX.Element {
       <DisplayAdmin
         count={count}
         limit={limit}
+        data={data}
+        menuChoose={menuChoose}
         isSuccessLoadData={isSuccessLoadData}
       />
     </Flex>
