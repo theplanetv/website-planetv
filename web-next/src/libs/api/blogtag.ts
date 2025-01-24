@@ -11,9 +11,9 @@ type ReturnData = {
   success: boolean;
 };
 
-async function Count(): Promise<ReturnCountData> {
+async function Count(search: string): Promise<ReturnCountData> {
   try {
-    const response = await fetch(`${API_URL}/blog/tags/count?search=`, {
+    const response = await fetch(`${API_URL}/blog/tags/count?search=${search}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
