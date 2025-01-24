@@ -35,7 +35,7 @@ export default function Admin(): JSX.Element {
         setIsLoading(false);
       }
 
-      const resultCount = await blogtag.Count();
+      const resultCount = await blogtag.Count(search);
       if (resultCount.success === true) {
         setCount(resultCount.data);
         setIsSuccessLoadData(true);
