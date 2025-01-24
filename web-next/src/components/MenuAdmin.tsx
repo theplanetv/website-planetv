@@ -20,20 +20,18 @@ export default function Menu({
       {isVisible && (
         <nav>
           <NavLink
-            href="#"
-            label="Tags"
+            label="Manage tag"
             leftSection={<Tag />}
             variant="filled"
             active={menuChoose == MenuAdminEnum.TAG}
             onClick={() => setMenuChoose(MenuAdminEnum.TAG)}
           />
           <NavLink
-            href="#"
-            label="Files"
+            label="Manage post"
             leftSection={<File />}
             variant="filled"
-            active={menuChoose == MenuAdminEnum.FILE}
-            onClick={() => setMenuChoose(MenuAdminEnum.FILE)}
+            active={menuChoose == MenuAdminEnum.POST}
+            onClick={() => setMenuChoose(MenuAdminEnum.POST)}
           />
         </nav>
       )}

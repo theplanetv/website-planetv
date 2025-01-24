@@ -6,8 +6,8 @@ export enum MenuEnum {
 }
 
 export enum MenuAdminEnum {
-  TAG = "blogtag",
-  FILE = "blogfile",
+  TAG = "tag",
+  POST = "post",
 }
 
 export enum ResponseEnum {
