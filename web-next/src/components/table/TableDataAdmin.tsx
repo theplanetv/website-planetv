@@ -8,8 +8,10 @@ type Props = {
   menuChoose: MenuAdminEnum;
 };
 
-export default function TableDataAdmin({ data, menuChoose }: Props): JSX.Element {
-
+export default function TableDataAdmin({
+  data,
+  menuChoose,
+}: Props): JSX.Element {
   return (
     <Table>
       <Table.Thead>

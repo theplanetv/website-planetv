@@ -25,6 +25,11 @@ export default function Admin(): JSX.Element {
   const [search, setSearch] = useState("");
   const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+
+  const handleShowForm = () => {
+    setShowForm(!showForm);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,6 +83,8 @@ export default function Admin(): JSX.Element {
         limit={limit}
         data={data}
         menuChoose={menuChoose}
+        showForm={showForm}
+        handleShowForm={handleShowForm}
         isSuccessLoadData={isSuccessLoadData}
       />
     </Flex>

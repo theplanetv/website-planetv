@@ -7,9 +7,12 @@ import { BlogTag } from "@/libs/types";
 type Props = {
   data: any;
   menuChoose: MenuAdminEnum;
-}
+};
 
-export default function TableValueAdmin({ data, menuChoose }: Props): JSX.Element {
+export default function TableValueAdmin({
+  data,
+  menuChoose,
+}: Props): JSX.Element {
   let rows: JSX.Element = <div></div>;
 
   if (menuChoose === MenuAdminEnum.TAG && data.length > 0) {
@@ -29,5 +32,5 @@ export default function TableValueAdmin({ data, menuChoose }: Props): JSX.Elemen
     );
   }
 
-  return rows
+  return rows;
 }
