@@ -11,6 +11,7 @@ import MenuAdmin from "@/components/MenuAdmin";
 import { verify } from "@/libs/api/auth";
 import blogtag from "@/libs/api/blogtag";
 import DisplayAdmin from "@/components/display/DisplayAdmin";
+import FormBlogTag from "@/components/form/FormBlogTag";
 
 export default function Admin(): JSX.Element {
   const router = useRouter();
@@ -78,12 +79,13 @@ export default function Admin(): JSX.Element {
         />
       </div>
 
+      {showForm && <FormBlogTag handleShowForm={handleShowForm} />}
+
       <DisplayAdmin
         count={count}
         limit={limit}
         data={data}
         menuChoose={menuChoose}
-        showForm={showForm}
         handleShowForm={handleShowForm}
         isSuccessLoadData={isSuccessLoadData}
       />

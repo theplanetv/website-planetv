@@ -100,17 +100,14 @@ async function GetData(
 
 async function Create(input: BlogTag): Promise<ReturnData> {
   try {
-    const response = await fetch(
-      `${API_URL}/blog/tags`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ name: input.name }),
+    const response = await fetch(`${API_URL}/blog/tags`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      credentials: "include",
+      body: JSON.stringify({ name: input.name }),
+    });
 
     if (!response.ok) {
       return {

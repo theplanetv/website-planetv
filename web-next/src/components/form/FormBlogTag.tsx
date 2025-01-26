@@ -1,15 +1,15 @@
 "use client";
 
-import { Button, Flex, Input } from "@mantine/core";
+import { Button, Group, Input, Stack, Text, Title } from "@mantine/core";
 import { JSX, useState } from "react";
 
-import "./FormBlogTag.css"
+import "./FormBlogTag.css";
 import blogtag from "@/libs/api/blogtag";
 import { BlogTag } from "@/libs/types";
 
 type Props = {
   handleShowForm: () => void;
-}
+};
 
 export default function FormBlogTag({ handleShowForm }: Props): JSX.Element {
   const [inputData, setInputData] = useState<BlogTag>({
@@ -31,14 +31,33 @@ export default function FormBlogTag({ handleShowForm }: Props): JSX.Element {
   };
 
   return (
-    <div className="container">
+    <Stack align="center" justify="center" className="form-container">
       <form onSubmit={handleSubmit}>
-        <Input value={inputData?.name} onChange={handleNameChange} />
-        <Flex>
-          <Button type="button" onClick={handleShowForm}>Close</Button>
-          <Button type="submit">Save</Button>
-        </Flex>
+        <Stack
+          align="center"
+          justify="center"
+          gap="md"
+          className="form-display"
+        >
+          <Title order={1}>Manage Tag</Title>
+
+          <Group gap="md">
+            <Text>Name:</Text>
+            <Input value={inputData?.name} onChange={handleNameChange} />
+          </Group>
+
+          <Group
+            justify="space-between"
+            gap="md"
+            className="form-button-container"
+          >
+            <Button type="submit">Save</Button>
+            <Button type="button" onClick={handleShowForm}>
+              Close
+            </Button>
+          </Group>
+        </Stack>
       </form>
-    </div>
+    </Stack>
   );
 }
