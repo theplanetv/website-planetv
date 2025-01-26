@@ -1,6 +1,6 @@
 import { ResponseEnum } from "@/libs/enum";
 import { API_URL } from "@/libs/config";
-import { BlogTag } from "../types";
+import { BlogTag } from "@/libs/types";
 
 type ReturnCountData = {
   data: number;
