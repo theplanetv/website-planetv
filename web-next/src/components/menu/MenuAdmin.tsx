@@ -4,6 +4,8 @@ import { Tag, File } from "lucide-react";
 
 import { MenuAdminEnum } from "@/libs/enum";
 
+import "./MenuAdmin.css";
+
 type Props = {
   isVisible: boolean;
   menuChoose: MenuAdminEnum;
@@ -18,7 +20,7 @@ export default function Menu({
   return (
     <>
       {isVisible && (
-        <nav>
+        <nav className="menu-admin">
           <NavLink
             label="Manage tag"
             leftSection={<Tag />}

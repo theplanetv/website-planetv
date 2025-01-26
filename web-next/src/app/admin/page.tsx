@@ -1,12 +1,14 @@
 "use client";
 
-import { Burger, Center, Flex, Loader } from "@mantine/core";
+import { Burger, Center, Flex, Group, Loader, Stack } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useRouter } from "next/navigation";
 import { JSX, useEffect, useState } from "react";
 
+import "./page.css"
+
 import { MenuAdminEnum } from "@/libs/enum";
-import MenuAdmin from "@/components/MenuAdmin";
+import MenuAdmin from "@/components/menu/MenuAdmin";
 
 import { verify } from "@/libs/api/auth";
 import blogtag from "@/libs/api/blogtag";
@@ -65,8 +67,8 @@ export default function Admin(): JSX.Element {
   }
 
   return (
-    <Flex>
-      <div>
+    <Group className="page">
+      <Stack>
         <Burger
           opened={isVisible}
           onClick={toggle}
@@ -77,7 +79,7 @@ export default function Admin(): JSX.Element {
           menuChoose={menuChoose}
           setMenuChoose={setMenuChoose}
         />
-      </div>
+      </Stack>
 
       {showForm && <FormBlogTag handleShowForm={handleShowForm} />}
 
@@ -89,6 +91,6 @@ export default function Admin(): JSX.Element {
         handleShowForm={handleShowForm}
         isSuccessLoadData={isSuccessLoadData}
       />
-    </Flex>
+    </Group>
   );
 }

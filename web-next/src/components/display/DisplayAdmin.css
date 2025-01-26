@@ -1,9 +1,6 @@
-.container {
+.display-container {
   display: flex;
-  height: 100vh;
-  width: fit-content;
-  justify-content: center;
-  align-items: center;
+  flex: auto;
 }
 
 .center {
