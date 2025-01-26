@@ -1,6 +1,6 @@
 "use client";
 
-import { Burger, Center, Flex, Group, Loader, Stack } from "@mantine/core";
+import { Burger, Center, Group, Loader, Stack } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useRouter } from "next/navigation";
 import { JSX, useEffect, useState } from "react";
