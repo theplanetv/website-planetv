@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Group, Pagination, Stack } from "@mantine/core";
+import { Button, Pagination, Stack } from "@mantine/core";
 import { JSX } from "react";
 import { PlusCircle } from "lucide-react";
 

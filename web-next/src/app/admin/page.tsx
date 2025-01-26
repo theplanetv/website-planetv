@@ -5,7 +5,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { useRouter } from "next/navigation";
 import { JSX, useEffect, useState } from "react";
 
-import "./page.css"
+import "./page.css";
 
 import { MenuAdminEnum } from "@/libs/enum";
 import MenuAdmin from "@/components/menu/MenuAdmin";
