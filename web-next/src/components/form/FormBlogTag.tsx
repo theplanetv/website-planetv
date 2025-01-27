@@ -6,20 +6,29 @@ import { JSX, useState } from "react";
 import "./FormBlogTag.css";
 import blogtag from "@/libs/api/blogtag";
 import { BlogTag } from "@/libs/types";
+import { FormStatusEnum } from "@/libs/enum";
 
 type Props = {
-  handleShowForm: () => void;
+  handleFormStatus: (status: FormStatusEnum) => void;
 };
 
-export default function FormBlogTag({ handleShowForm }: Props): JSX.Element {
+export default function FormBlogTag({ handleFormStatus }: Props): JSX.Element {
   const [inputData, setInputData] = useState<BlogTag>({
     id: "",
     name: "",
   });
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const result = blogtag.Create(inputData);
+
+    const result = await blogtag.Create(inputData);
+    if (result.success === false) {
+      alert("Create data failed!");
+      return;
+    }
+    
+    alert("Create data success");
+    handleFormStatus(FormStatusEnum.NONE);
   };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +61,7 @@ export default function FormBlogTag({ handleShowForm }: Props): JSX.Element {
             className="form-button-container"
           >
             <Button type="submit">Save</Button>
-            <Button type="button" onClick={handleShowForm}>
+            <Button type="button" onClick={() => handleFormStatus(FormStatusEnum.NONE)}>
               Close
             </Button>
           </Group>

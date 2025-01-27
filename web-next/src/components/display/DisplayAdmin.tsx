@@ -7,14 +7,14 @@ import { PlusCircle } from "lucide-react";
 import "./DisplayAdmin.css";
 import TableDataAdmin from "@/components/table/TableDataAdmin";
 import { GetTotalPage } from "@/libs/utils";
-import { MenuAdminEnum } from "@/libs/enum";
+import { FormStatusEnum, MenuAdminEnum } from "@/libs/enum";
 
 type Props = {
   count: number;
   limit: number;
   data: any;
   menuChoose: MenuAdminEnum;
-  handleShowForm: () => void;
+  handleFormStatus: (status: FormStatusEnum) => void;
   isSuccessLoadData: boolean;
 };
 
@@ -23,12 +23,12 @@ export default function DisplayAdmin({
   limit,
   data,
   menuChoose,
-  handleShowForm,
+  handleFormStatus,
 }: Props): JSX.Element {
   return (
     <Group justify="center" align="center" className="display-container">
       <Stack justify="center" align="center" >
-        <Button leftSection={<PlusCircle />} onClick={() => handleShowForm()}>
+        <Button leftSection={<PlusCircle />} onClick={() => handleFormStatus(FormStatusEnum.CREATE)}>
           Add
         </Button>
 

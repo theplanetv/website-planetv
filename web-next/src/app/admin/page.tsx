@@ -7,13 +7,13 @@ import { JSX, useEffect, useState } from "react";
 
 import "./page.css";
 
-import { MenuAdminEnum } from "@/libs/enum";
+import DisplayAdmin from "@/components/display/DisplayAdmin";
+import FormBlogTag from "@/components/form/FormBlogTag";
 import MenuAdmin from "@/components/menu/MenuAdmin";
 
 import { verify } from "@/libs/api/auth";
 import blogtag from "@/libs/api/blogtag";
-import DisplayAdmin from "@/components/display/DisplayAdmin";
-import FormBlogTag from "@/components/form/FormBlogTag";
+import { FormStatusEnum, MenuAdminEnum } from "@/libs/enum";
 
 export default function Admin(): JSX.Element {
   const router = useRouter();
@@ -28,10 +28,10 @@ export default function Admin(): JSX.Element {
   const [search, setSearch] = useState("");
   const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
-  const [showForm, setShowForm] = useState(false);
+  const [formStatus, setFormStatus] = useState(FormStatusEnum.NONE);
 
-  const handleShowForm = () => {
-    setShowForm(!showForm);
+  const handleFormStatus = (status: FormStatusEnum) => {
+    setFormStatus(status);
   };
 
   useEffect(() => {
@@ -81,14 +81,14 @@ export default function Admin(): JSX.Element {
         />
       </Stack>
 
-      {showForm && <FormBlogTag handleShowForm={handleShowForm} />}
+      {formStatus !== FormStatusEnum.NONE && <FormBlogTag handleFormStatus={handleFormStatus} />}
 
       <DisplayAdmin
         count={count}
         limit={limit}
         data={data}
         menuChoose={menuChoose}
-        handleShowForm={handleShowForm}
+        handleFormStatus={handleFormStatus}
         isSuccessLoadData={isSuccessLoadData}
       />
     </Group>

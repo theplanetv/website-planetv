@@ -10,6 +10,13 @@ export enum MenuAdminEnum {
   POST = "post",
 }
 
+export enum FormStatusEnum {
+  CREATE = "create",
+  UPDATE = "update",
+  REMOVE = "remove",
+  NONE = "none",
+}
+
 export enum ResponseEnum {
   AUTH_SUCCESS = "Authorize success!",
   LOGIN_SUCCESS = "Login success!",
