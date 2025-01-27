@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Pagination, Stack } from "@mantine/core";
+import { Button, Group, Pagination, Stack } from "@mantine/core";
 import { JSX } from "react";
 import { PlusCircle } from "lucide-react";
 
@@ -26,14 +26,16 @@ export default function DisplayAdmin({
   handleShowForm,
 }: Props): JSX.Element {
   return (
-    <Stack justify="center" align="center" className="display-container">
-      <Button leftSection={<PlusCircle />} onClick={() => handleShowForm()}>
-        Add
-      </Button>
+    <Group justify="center" align="center" className="display-container">
+      <Stack justify="center" align="center" >
+        <Button leftSection={<PlusCircle />} onClick={() => handleShowForm()}>
+          Add
+        </Button>
 
-      <TableDataAdmin data={data} menuChoose={menuChoose} />
+        <TableDataAdmin data={data} menuChoose={menuChoose} />
 
-      <Pagination total={GetTotalPage(count, limit)} />
-    </Stack>
+        <Pagination total={GetTotalPage(count, limit)} />
+      </Stack>
+    </Group>
   );
 }
