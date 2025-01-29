@@ -35,7 +35,7 @@ export default function DisplayAdmin({
           Add
         </Button>
 
-        <TableDataAdmin data={data} menuChoose={menuChoose} />
+        <TableDataAdmin data={data} menuChoose={menuChoose} handleFormStatus={handleFormStatus} />
 
         <Pagination total={GetTotalPage(count, limit)} />
       </Stack>

@@ -1,17 +1,20 @@
 import { JSX } from "react";
-import { Table } from "@mantine/core";
+import { Button, Group, Table } from "@mantine/core";
+import { Edit, Trash } from "lucide-react";
 
-import { MenuAdminEnum } from "@/libs/enum";
+import { FormStatusEnum, MenuAdminEnum } from "@/libs/enum";
 import { BlogTag } from "@/libs/types";
 
 type Props = {
   data: any;
   menuChoose: MenuAdminEnum;
+  handleFormStatus: (status: FormStatusEnum) => void;
 };
 
 export default function TableValueAdmin({
   data,
   menuChoose,
+  handleFormStatus,
 }: Props): JSX.Element {
   let rows: JSX.Element = <div></div>;
 
@@ -20,12 +23,23 @@ export default function TableValueAdmin({
       <Table.Tr key={item.name}>
         <Table.Td>{index + 1}</Table.Td>
         <Table.Td>{item.name}</Table.Td>
+        <Table.Td>
+          <Group gap="md">
+            <Button onClick={() => handleFormStatus(FormStatusEnum.UPDATE)}>
+              <Edit />
+            </Button>
+
+            <Button onClick={() => handleFormStatus(FormStatusEnum.REMOVE)}>
+              <Trash />
+            </Button>
+          </Group>
+        </Table.Td>
       </Table.Tr>
     ));
   } else {
     rows = (
       <Table.Tr>
-        <Table.Td colSpan={2} style={{ textAlign: "center" }}>
+        <Table.Td colSpan={3} style={{ textAlign: "center" }}>
           No data found
         </Table.Td>
       </Table.Tr>
