@@ -53,24 +53,22 @@ export default function Admin(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    if (refresh) {
-      const fetchData = async () => {
-        const resultCount = await blogtag.Count(search);
-        if (resultCount.success === true) {
-          setCount(resultCount.data);
-          setIsSuccessLoadData(true);
-        }
+    const fetchData = async () => {
+      const resultCount = await blogtag.Count(search);
+      if (resultCount.success === true) {
+        setCount(resultCount.data);
+        setIsSuccessLoadData(true);
+      }
 
-        const resultData = await blogtag.GetData(search, limit, page);
-        if (resultData.success === true) {
-          setData(resultData.data);
-          setIsSuccessLoadData(true);
-        }
-      };
-      fetchData();
-      setRefresh(false);
-    }
-  }, [refresh === true]);
+      const resultData = await blogtag.GetData(search, limit, page);
+      if (resultData.success === true) {
+        setData(resultData.data);
+        setIsSuccessLoadData(true);
+      }
+    };
+    fetchData();
+    setRefresh(false);
+  }, [refresh, page]);
 
   if (isLoading) {
     return (
@@ -107,6 +105,7 @@ export default function Admin(): JSX.Element {
         limit={limit}
         data={data}
         menuChoose={menuChoose}
+        setPage={setPage}
         handleFormStatus={handleFormStatus}
         isSuccessLoadData={isSuccessLoadData}
       />

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Group, Pagination, Stack } from "@mantine/core";
-import { JSX } from "react";
+import { Dispatch, JSX, SetStateAction } from "react";
 import { PlusCircle } from "lucide-react";
 
 import "./DisplayAdmin.css";
@@ -14,6 +14,7 @@ type Props = {
   limit: number;
   data: any;
   menuChoose: MenuAdminEnum;
+  setPage: Dispatch<SetStateAction<number>>
   handleFormStatus: (status: FormStatusEnum) => void;
   isSuccessLoadData: boolean;
 };
@@ -23,6 +24,7 @@ export default function DisplayAdmin({
   limit,
   data,
   menuChoose,
+  setPage,
   handleFormStatus,
 }: Props): JSX.Element {
   return (
@@ -37,7 +39,7 @@ export default function DisplayAdmin({
 
         <TableDataAdmin data={data} menuChoose={menuChoose} handleFormStatus={handleFormStatus} />
 
-        <Pagination total={GetTotalPage(count, limit)} />
+        <Pagination total={GetTotalPage(count, limit)} onChange={setPage} />
       </Stack>
     </Group>
   );
