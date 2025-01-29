@@ -31,10 +31,11 @@ export default function DisplayAdmin({
     <Group justify="center" align="center" className="display-container">
       <Stack justify="center" align="center">
         <Button
-          leftSection={<PlusCircle />}
+          color="green"
+          size="compact-md"
           onClick={() => handleFormStatus(FormStatusEnum.CREATE)}
         >
-          Add
+          <PlusCircle size={18} />
         </Button>
 
         <TableDataAdmin

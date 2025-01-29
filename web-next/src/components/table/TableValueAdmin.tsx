@@ -24,13 +24,20 @@ export default function TableValueAdmin({
         <Table.Td>{index + 1}</Table.Td>
         <Table.Td>{item.name}</Table.Td>
         <Table.Td>
-          <Group gap="md">
-            <Button onClick={() => handleFormStatus(FormStatusEnum.UPDATE)}>
-              <Edit />
+          <Group gap="xs">
+            <Button
+              size="compact-md"
+              onClick={() => handleFormStatus(FormStatusEnum.UPDATE)}
+            >
+              <Edit size={18} />
             </Button>
 
-            <Button onClick={() => handleFormStatus(FormStatusEnum.REMOVE)}>
-              <Trash />
+            <Button
+              color="red"
+              size="compact-md"
+              onClick={() => handleFormStatus(FormStatusEnum.REMOVE)}
+            >
+              <Trash size={18} />
             </Button>
           </Group>
         </Table.Td>
