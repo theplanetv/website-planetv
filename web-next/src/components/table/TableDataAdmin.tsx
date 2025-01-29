@@ -26,7 +26,11 @@ export default function TableDataAdmin({
       </Table.Thead>
 
       <Table.Tbody>
-        <TableValueAdmin data={data} menuChoose={menuChoose} handleFormStatus={handleFormStatus} />
+        <TableValueAdmin
+          data={data}
+          menuChoose={menuChoose}
+          handleFormStatus={handleFormStatus}
+        />
       </Table.Tbody>
     </Table>
   );

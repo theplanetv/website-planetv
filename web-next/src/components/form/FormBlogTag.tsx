@@ -37,7 +37,7 @@ export default function FormBlogTag({
       alert("Create data success");
       handleFormStatus(FormStatusEnum.NONE);
       handleRefreshToTrue();
-    };
+    }
   };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {

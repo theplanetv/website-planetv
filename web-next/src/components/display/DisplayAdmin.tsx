@@ -14,7 +14,7 @@ type Props = {
   limit: number;
   data: any;
   menuChoose: MenuAdminEnum;
-  setPage: Dispatch<SetStateAction<number>>
+  setPage: Dispatch<SetStateAction<number>>;
   handleFormStatus: (status: FormStatusEnum) => void;
   isSuccessLoadData: boolean;
 };
@@ -37,7 +37,11 @@ export default function DisplayAdmin({
           Add
         </Button>
 
-        <TableDataAdmin data={data} menuChoose={menuChoose} handleFormStatus={handleFormStatus} />
+        <TableDataAdmin
+          data={data}
+          menuChoose={menuChoose}
+          handleFormStatus={handleFormStatus}
+        />
 
         <Pagination total={GetTotalPage(count, limit)} onChange={setPage} />
       </Stack>
