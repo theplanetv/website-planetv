@@ -98,7 +98,7 @@ export default function Admin(): JSX.Element {
       {formStatus !== FormStatusEnum.NONE && (
         <FormBlogTag
           handleRefreshToTrue={handleRefreshToTrue}
-          handleFormStatus={handleFormStatus}
+          formStatus={formStatus} handleFormStatus={handleFormStatus}
         />
       )}
 
