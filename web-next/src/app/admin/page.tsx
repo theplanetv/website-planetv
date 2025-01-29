@@ -68,7 +68,7 @@ export default function Admin(): JSX.Element {
     };
     fetchData();
     setRefresh(false);
-  }, [refresh, page]);
+  }, [refresh, search, page]);
 
   if (isLoading) {
     return (
@@ -106,6 +106,7 @@ export default function Admin(): JSX.Element {
         limit={limit}
         data={data}
         menuChoose={menuChoose}
+        setSearch={setSearch}
         setPage={setPage}
         handleFormStatus={handleFormStatus}
         isSuccessLoadData={isSuccessLoadData}
