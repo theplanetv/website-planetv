@@ -27,8 +27,11 @@ export default function DisplayAdmin({
 }: Props): JSX.Element {
   return (
     <Group justify="center" align="center" className="display-container">
-      <Stack justify="center" align="center" >
-        <Button leftSection={<PlusCircle />} onClick={() => handleFormStatus(FormStatusEnum.CREATE)}>
+      <Stack justify="center" align="center">
+        <Button
+          leftSection={<PlusCircle />}
+          onClick={() => handleFormStatus(FormStatusEnum.CREATE)}
+        >
           Add
         </Button>
 

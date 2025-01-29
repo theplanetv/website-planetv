@@ -9,10 +9,14 @@ import { BlogTag } from "@/libs/types";
 import { FormStatusEnum } from "@/libs/enum";
 
 type Props = {
+  handleRefreshToTrue: () => void;
   handleFormStatus: (status: FormStatusEnum) => void;
 };
 
-export default function FormBlogTag({ handleFormStatus }: Props): JSX.Element {
+export default function FormBlogTag({
+  handleRefreshToTrue,
+  handleFormStatus,
+}: Props): JSX.Element {
   const [inputData, setInputData] = useState<BlogTag>({
     id: "",
     name: "",
@@ -26,9 +30,10 @@ export default function FormBlogTag({ handleFormStatus }: Props): JSX.Element {
       alert("Create data failed!");
       return;
     }
-    
+
     alert("Create data success");
     handleFormStatus(FormStatusEnum.NONE);
+    handleRefreshToTrue();
   };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +66,10 @@ export default function FormBlogTag({ handleFormStatus }: Props): JSX.Element {
             className="form-button-container"
           >
             <Button type="submit">Save</Button>
-            <Button type="button" onClick={() => handleFormStatus(FormStatusEnum.NONE)}>
+            <Button
+              type="button"
+              onClick={() => handleFormStatus(FormStatusEnum.NONE)}
+            >
               Close
             </Button>
           </Group>
