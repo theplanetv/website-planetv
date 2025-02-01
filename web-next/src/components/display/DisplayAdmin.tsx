@@ -8,6 +8,7 @@ import "./DisplayAdmin.css";
 import TableDataAdmin from "@/components/table/TableDataAdmin";
 import { GetTotalPage } from "@/libs/utils";
 import { FormStatusEnum, MenuAdminEnum } from "@/libs/enum";
+import { BlogTag } from "@/libs/types";
 
 type Props = {
   count: number;
@@ -16,6 +17,7 @@ type Props = {
   menuChoose: MenuAdminEnum;
   setSearch: Dispatch<SetStateAction<string>>;
   setPage: Dispatch<SetStateAction<number>>;
+  setInputFormData: Dispatch<SetStateAction<BlogTag | undefined>>;
   handleFormStatus: (status: FormStatusEnum) => void;
   isSuccessLoadData: boolean;
 };
@@ -27,6 +29,7 @@ export default function DisplayAdmin({
   menuChoose,
   setSearch,
   setPage,
+  setInputFormData,
   handleFormStatus,
 }: Props): JSX.Element {
   const [searchInput, setSearchInput] = useState("");
@@ -60,6 +63,7 @@ export default function DisplayAdmin({
         <TableDataAdmin
           data={data}
           menuChoose={menuChoose}
+          setInputFormData={setInputFormData}
           handleFormStatus={handleFormStatus}
         />
 

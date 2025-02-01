@@ -137,8 +137,90 @@ async function Create(input: BlogTag): Promise<ReturnData> {
   }
 }
 
+async function Update(input: BlogTag): Promise<ReturnData> {
+  try {
+    const response = await fetch(`${API_URL}/blog/tags`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        id: input.id,
+        name: input.name,
+      }),
+    });
+
+    if (!response.ok) {
+      return {
+        data: {},
+        success: false,
+      };
+    }
+
+    const jsonResponse = await response.json();
+
+    if (jsonResponse.message === ResponseEnum.UPDATE_DATA_SUCCESS) {
+      return {
+        data: jsonResponse.data,
+        success: true,
+      };
+    } else {
+      return {
+        data: {},
+        success: false,
+      };
+    }
+  } catch (error) {
+    return {
+      data: {},
+      success: false,
+    };
+  }
+}
+
+async function Remove(id: string): Promise<ReturnData> {
+  try {
+    const response = await fetch(`${API_URL}/blog/tags/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      return {
+        data: {},
+        success: false,
+      };
+    }
+
+    const jsonResponse = await response.json();
+
+    if (jsonResponse.message === ResponseEnum.REMOVE_DATA_SUCCESS) {
+      return {
+        data: jsonResponse.data,
+        success: true,
+      };
+    } else {
+      return {
+        data: {},
+        success: false,
+      };
+    }
+  } catch (error) {
+    return {
+      data: {},
+      success: false,
+    };
+  }
+}
+
 export default {
   Count,
   GetData,
   Create,
+  Update,
+  Remove,
 };

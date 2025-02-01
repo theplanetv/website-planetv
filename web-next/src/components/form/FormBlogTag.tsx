@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Group, Input, Stack, Text, Title } from "@mantine/core";
-import { JSX, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 
 import "./FormBlogTag.css";
 import blogtag from "@/libs/api/blogtag";
@@ -12,12 +12,14 @@ type Props = {
   handleRefreshToTrue: () => void;
   formStatus: FormStatusEnum;
   handleFormStatus: (status: FormStatusEnum) => void;
+  inputFormData: BlogTag | undefined;
 };
 
 export default function FormBlogTag({
   handleRefreshToTrue,
   formStatus,
   handleFormStatus,
+  inputFormData,
 }: Props): JSX.Element {
   const [inputData, setInputData] = useState<BlogTag>({
     id: "",
@@ -37,8 +39,34 @@ export default function FormBlogTag({
       alert("Create data success");
       handleFormStatus(FormStatusEnum.NONE);
       handleRefreshToTrue();
+    } else if (formStatus === FormStatusEnum.UPDATE) {
+      const result = await blogtag.Update(inputData);
+      if (result.success === false) {
+        alert("Update data failed!");
+        return;
+      }
+
+      alert("Update data success");
+      handleFormStatus(FormStatusEnum.NONE);
+      handleRefreshToTrue();
+    } else if (formStatus === FormStatusEnum.REMOVE) {
+      const result = await blogtag.Remove(inputData.id);
+      if (result.success === false) {
+        alert("Remove data failed!");
+        return;
+      }
+
+      alert("Remove data success");
+      handleFormStatus(FormStatusEnum.NONE);
+      handleRefreshToTrue();
     }
   };
+
+  useEffect(() => {
+    if (inputFormData) {
+      setInputData(inputFormData);
+    }
+  }, [inputFormData]);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;

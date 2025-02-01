@@ -14,6 +14,7 @@ import MenuAdmin from "@/components/menu/MenuAdmin";
 import { verify } from "@/libs/api/auth";
 import blogtag from "@/libs/api/blogtag";
 import { FormStatusEnum, MenuAdminEnum } from "@/libs/enum";
+import { BlogTag } from "@/libs/types";
 
 export default function Admin(): JSX.Element {
   const router = useRouter();
@@ -24,6 +25,7 @@ export default function Admin(): JSX.Element {
   const [refresh, setRefresh] = useState(true);
   const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
+  const [inputFormData, setInputFormData] = useState<BlogTag>();
 
   // User state (user can change status)
   const [menuChoose, setMenuChoose] = useState(MenuAdminEnum.TAG);
@@ -98,6 +100,7 @@ export default function Admin(): JSX.Element {
           handleRefreshToTrue={handleRefreshToTrue}
           formStatus={formStatus}
           handleFormStatus={handleFormStatus}
+          inputFormData={inputFormData}
         />
       )}
 
@@ -108,6 +111,7 @@ export default function Admin(): JSX.Element {
         menuChoose={menuChoose}
         setSearch={setSearch}
         setPage={setPage}
+        setInputFormData={setInputFormData}
         handleFormStatus={handleFormStatus}
         isSuccessLoadData={isSuccessLoadData}
       />

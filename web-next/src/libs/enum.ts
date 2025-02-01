@@ -22,4 +22,6 @@ export enum ResponseEnum {
   LOGIN_SUCCESS = "Login success!",
   GET_DATA_SUCCESS = "Get data success!",
   CREATE_DATA_SUCCESS = "Create data success!",
+	UPDATE_DATA_SUCCESS = "Update data success!",
+	REMOVE_DATA_SUCCESS = "Remove data success!",
 }

@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import { Dispatch, JSX, SetStateAction } from "react";
 import { Button, Group, Table } from "@mantine/core";
 import { Edit, Trash } from "lucide-react";
 
@@ -8,12 +8,14 @@ import { BlogTag } from "@/libs/types";
 type Props = {
   data: any;
   menuChoose: MenuAdminEnum;
+  setInputFormData: Dispatch<SetStateAction<BlogTag | undefined>>;
   handleFormStatus: (status: FormStatusEnum) => void;
 };
 
 export default function TableValueAdmin({
   data,
   menuChoose,
+  setInputFormData,
   handleFormStatus,
 }: Props): JSX.Element {
   let rows: JSX.Element = <div></div>;
@@ -27,7 +29,10 @@ export default function TableValueAdmin({
           <Group gap="xs">
             <Button
               size="compact-md"
-              onClick={() => handleFormStatus(FormStatusEnum.UPDATE)}
+              onClick={() => {
+                handleFormStatus(FormStatusEnum.UPDATE);
+                setInputFormData(item);
+              }}
             >
               <Edit size={18} />
             </Button>
@@ -35,7 +40,10 @@ export default function TableValueAdmin({
             <Button
               color="red"
               size="compact-md"
-              onClick={() => handleFormStatus(FormStatusEnum.REMOVE)}
+              onClick={() => {
+                handleFormStatus(FormStatusEnum.REMOVE);
+                setInputFormData(item);
+              }}
             >
               <Trash size={18} />
             </Button>

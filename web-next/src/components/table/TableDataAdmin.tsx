@@ -1,18 +1,21 @@
-import { JSX } from "react";
+import { Dispatch, JSX, SetStateAction } from "react";
 import { Table } from "@mantine/core";
 
 import TableValueAdmin from "@/components/table/TableValueAdmin";
 import { FormStatusEnum, MenuAdminEnum } from "@/libs/enum";
+import { BlogTag } from "@/libs/types";
 
 type Props = {
   data: any;
   menuChoose: MenuAdminEnum;
+  setInputFormData: Dispatch<SetStateAction<BlogTag | undefined>>;
   handleFormStatus: (status: FormStatusEnum) => void;
 };
 
 export default function TableDataAdmin({
   data,
   menuChoose,
+  setInputFormData,
   handleFormStatus,
 }: Props): JSX.Element {
   return (
@@ -29,6 +32,7 @@ export default function TableDataAdmin({
         <TableValueAdmin
           data={data}
           menuChoose={menuChoose}
+          setInputFormData={setInputFormData}
           handleFormStatus={handleFormStatus}
         />
       </Table.Tbody>
