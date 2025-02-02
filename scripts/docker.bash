@@ -7,6 +7,9 @@ PROJECT_API_CHI_CONTAINER=$(eval echo $PROJECT_API_CHI_CONTAINER)
 PROJECT_DATABASE_CONTAINER=$(eval echo $PROJECT_DATABASE_CONTAINER)
 PROJECT_NEXT_CONTAINER=$(eval echo $PROJECT_NEXT_CONTAINER)
 
+remove_web_next_image() {
+  docker rmi ${PROJECT_NEXT_IMAGE}
+}
 remove_images() {
   docker rmi ${PROJECT_DATABASE_IMAGE} ${PROJECT_API_CHI_IMAGE} ${PROJECT_NEXT_IMAGE}
 }
@@ -26,6 +29,12 @@ if [ $# -eq 1 ]; then
   "rebuild")
     docker compose down
     remove_images
+    docker compose up -d
+  ;;
+
+  "rebuild-web-next")
+    docker compose stop
+    remove_web_next_image
     docker compose up -d
   ;;
 
