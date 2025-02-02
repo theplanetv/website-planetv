@@ -85,24 +85,54 @@ export default function FormBlogTag({
           gap="md"
           className="form-display"
         >
-          <Title order={1}>Manage Tag</Title>
+          <Title order={1}>
+            {formStatus === FormStatusEnum.CREATE && "Create"}
+            {formStatus === FormStatusEnum.UPDATE && "Update"}
+            {formStatus === FormStatusEnum.REMOVE && "Remove"}
+            Tag
+          </Title>
 
-          <Group gap="md">
-            <Text>Name:</Text>
-            <Input value={inputData?.name} onChange={handleNameChange} />
-          </Group>
+          {formStatus !== FormStatusEnum.REMOVE &&
+            <Group gap="md">
+              <Text>Name:</Text>
+              <Input value={inputData?.name} onChange={handleNameChange} />
+            </Group>
+          }
+
+          {formStatus === FormStatusEnum.REMOVE &&
+            <Group justify="center" align="center">
+              <p>Are you sure you want to remove data? This action can't be undo.</p>
+            </Group>
+          }
 
           <Group
             justify="space-between"
             gap="md"
             className="form-button-container"
           >
-            <Button type="submit">Save</Button>
+            {formStatus === FormStatusEnum.CREATE &&
+              <Button color="green" type="submit">
+                Create
+              </Button>
+            }
+
+            {formStatus === FormStatusEnum.UPDATE &&
+              <Button type="submit">
+                Update
+              </Button>
+            }
+
+            {formStatus === FormStatusEnum.REMOVE &&
+              <Button color="red" type="submit">
+                Remove
+              </Button>
+            }
+
             <Button
               type="button"
               onClick={() => handleFormStatus(FormStatusEnum.NONE)}
             >
-              Close
+              Cancel
             </Button>
           </Group>
         </Stack>
