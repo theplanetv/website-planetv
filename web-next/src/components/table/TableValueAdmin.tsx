@@ -1,15 +1,23 @@
-import { JSX } from "react";
-import { Table } from "@mantine/core";
+import { Dispatch, JSX, SetStateAction } from "react";
+import { Button, Group, Table } from "@mantine/core";
+import { Edit, Trash } from "lucide-react";
 
-import { MenuAdminEnum } from "@/libs/enum";
+import { FormStatusEnum, MenuAdminEnum } from "@/libs/enum";
 import { BlogTag } from "@/libs/types";
 
 type Props = {
   data: any;
   menuChoose: MenuAdminEnum;
-}
+  setInputFormData: Dispatch<SetStateAction<BlogTag | undefined>>;
+  handleFormStatus: (status: FormStatusEnum) => void;
+};
 
-export default function TableValueAdmin({ data, menuChoose }: Props): JSX.Element {
+export default function TableValueAdmin({
+  data,
+  menuChoose,
+  setInputFormData,
+  handleFormStatus,
+}: Props): JSX.Element {
   let rows: JSX.Element = <div></div>;
 
   if (menuChoose === MenuAdminEnum.TAG && data.length > 0) {
@@ -17,17 +25,41 @@ export default function TableValueAdmin({ data, menuChoose }: Props): JSX.Elemen
       <Table.Tr key={item.name}>
         <Table.Td>{index + 1}</Table.Td>
         <Table.Td>{item.name}</Table.Td>
+        <Table.Td>
+          <Group gap="xs">
+            <Button
+              size="compact-md"
+              onClick={() => {
+                handleFormStatus(FormStatusEnum.UPDATE);
+                setInputFormData(item);
+              }}
+            >
+              <Edit size={18} />
+            </Button>
+
+            <Button
+              color="red"
+              size="compact-md"
+              onClick={() => {
+                handleFormStatus(FormStatusEnum.REMOVE);
+                setInputFormData(item);
+              }}
+            >
+              <Trash size={18} />
+            </Button>
+          </Group>
+        </Table.Td>
       </Table.Tr>
     ));
   } else {
     rows = (
       <Table.Tr>
-        <Table.Td colSpan={2} style={{ textAlign: "center" }}>
+        <Table.Td colSpan={3} style={{ textAlign: "center" }}>
           No data found
         </Table.Td>
       </Table.Tr>
     );
   }
 
-  return rows
+  return rows;
 }
