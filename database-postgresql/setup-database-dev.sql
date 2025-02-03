@@ -5,4 +5,4 @@
 \i /docker-entrypoint-initdb.d/src/functions/blog_tag.sql
 
 -- Create test values
-\i /docker-entrypoint-initdb.d/src/insert-test.sql
+\i /docker-entrypoint-initdb.d/src/insert-test-data.sql
