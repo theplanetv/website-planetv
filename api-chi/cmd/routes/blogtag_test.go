@@ -29,7 +29,7 @@ func Test_BlogTagRoutes(t *testing.T) {
 	}
 
 	t.Run("Count success", func(t *testing.T) {
-		req := httptest.NewRequest("GET", "/blogtag/count", nil)
+		req := httptest.NewRequest("GET", "/blog/tags/count", nil)
 		res := httptest.NewRecorder()
 
 		r.ServeHTTP(res, req)
@@ -47,7 +47,7 @@ func Test_BlogTagRoutes(t *testing.T) {
 		limit := 10
 		page := 1
 
-		req := httptest.NewRequest("GET", fmt.Sprintf("/blogtag?search=%s&limit=%d&page=%d", search, limit, page), nil)
+		req := httptest.NewRequest("GET", fmt.Sprintf("/blog/tags?search=%s&limit=%d&page=%d", search, limit, page), nil)
 		res := httptest.NewRecorder()
 
 		r.ServeHTTP(res, req)
@@ -64,7 +64,7 @@ func Test_BlogTagRoutes(t *testing.T) {
 		input := models.BlogTag{Name: "test tag"}
 		body, _ := json.Marshal(input)
 
-		req := httptest.NewRequest("POST", "/blogtag", bytes.NewBuffer(body))
+		req := httptest.NewRequest("POST", "/blog/tags", bytes.NewBuffer(body))
 		req.AddCookie(authCookie)
 		res := httptest.NewRecorder()
 
@@ -100,7 +100,7 @@ func Test_BlogTagRoutes(t *testing.T) {
 		}
 		body, _ := json.Marshal(input)
 
-		req := httptest.NewRequest("PATCH", "/blogtag", bytes.NewBuffer(body))
+		req := httptest.NewRequest("PATCH", "/blog/tags", bytes.NewBuffer(body))
 		req.AddCookie(authCookie)
 		res := httptest.NewRecorder()
 
@@ -119,7 +119,7 @@ func Test_BlogTagRoutes(t *testing.T) {
 			t.Fatal("ID must be set before running Remove test")
 		}
 
-		req := httptest.NewRequest("DELETE", "/blogtag/"+id, nil)
+		req := httptest.NewRequest("DELETE", "/blog/tags/"+id, nil)
 		req.AddCookie(authCookie)
 		res := httptest.NewRecorder()
 
