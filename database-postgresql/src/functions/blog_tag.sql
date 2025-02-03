@@ -72,13 +72,10 @@ CREATE OR REPLACE FUNCTION create_blog_tag(
     DECLARE
         return_id UUID;
     BEGIN
-        INSERT INTO blog_tag (name)
-        VALUES (input_name)
-        RETURNING blog_tag.id INTO return_id;
-
         RETURN QUERY
-            SELECT blog_tag.id, blog_tag.name FROM blog_tag
-            WHERE blog_tag.id = return_id;
+            INSERT INTO blog_tag (name)
+            VALUES (input_name)
+            RETURNING blog_tag.id, blog_tag.name;
     END;
     $$ LANGUAGE plpgsql;
 
@@ -92,28 +89,26 @@ CREATE OR REPLACE FUNCTION update_blog_tag(
     )
     AS $$
     BEGIN
-        UPDATE blog_tag
-        SET name=input_name
-        WHERE blog_tag.id = input_id;
-
         RETURN QUERY
-            SELECT blog_tag.id, blog_tag.name FROM blog_tag
-            WHERE blog_tag.id = input_id;
+            UPDATE blog_tag
+            SET name = input_name
+            WHERE blog_tag.id = input_id
+            RETURNING blog_tag.id, blog_tag.name;
     END;
     $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION remove_blog_tag(
         input_id UUID
     )
-    RETURNS UUID
+    RETURNS TABLE (
+        id   UUID,
+        name TEXT
+    )
     AS $$
-    DECLARE
-        return_id UUID;
     BEGIN
-        DELETE FROM blog_tag
-        WHERE id=input_id
-        RETURNING id INTO return_id;
-
-        RETURN return_id;
+        RETURN QUERY
+            DELETE FROM blog_tag
+            WHERE blog_tag.id = input_id
+            RETURNING blog_tag.id, blog_tag.name;
     END;
     $$ LANGUAGE plpgsql;
