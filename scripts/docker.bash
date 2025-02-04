@@ -7,6 +7,9 @@ PROJECT_API_CHI_CONTAINER=$(eval echo $PROJECT_API_CHI_CONTAINER)
 PROJECT_DATABASE_CONTAINER=$(eval echo $PROJECT_DATABASE_CONTAINER)
 PROJECT_NEXT_CONTAINER=$(eval echo $PROJECT_NEXT_CONTAINER)
 
+remove_database_image() {
+  docker rmi ${PROJECT_DATABASE_IMAGE}
+}
 remove_web_next_image() {
   docker rmi ${PROJECT_NEXT_IMAGE}
 }
@@ -36,6 +39,12 @@ if [ $# -eq 1 ]; then
     docker compose stop
     remove_web_next_image
     docker compose up -d
+  ;;
+
+  "rebuild-only-database")
+    docker compose down
+    remove_database_image
+    docker compose up -d database-postgresql
   ;;
 
   *)
