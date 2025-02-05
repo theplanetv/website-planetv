@@ -34,24 +34,18 @@ jobs:
 
     - name: Test api-chi auth service
       run: sh scripts/test.bash api-auth-service
-      continue-on-error: true
 
     - name: Test api-chi auth middleware
       run: sh scripts/test.bash api-auth-middleware
-      continue-on-error: true
 
     - name: Test api-chi auth route
       run: sh scripts/test.bash api-auth-route
-      continue-on-error: true
 
     - name: Test api-chi database service
       run: sh scripts/test.bash api-database-service
-      continue-on-error: true
 
     - name: Test api-chi blogtag service
       run: sh scripts/test.bash api-blogtag-service
-      continue-on-error: true
 
     - name: Test api-chi blogtag route
       run: sh scripts/test.bash api-blogtag-route
-      continue-on-error: true
