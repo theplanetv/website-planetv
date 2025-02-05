@@ -44,6 +44,10 @@ jobs:
       run: sh scripts/test.bash api-auth-route
       continue-on-error: true
 
+    - name: Test api-chi database service
+      run: sh scripts/test.bash api-database-service
+      continue-on-error: true
+
     - name: Test api-chi blogtag service
       run: sh scripts/test.bash api-blogtag-service
       continue-on-error: true
