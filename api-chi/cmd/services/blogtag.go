@@ -19,11 +19,11 @@ func (s *BlogTagService) Close() {
 	s.Conn.Close()
 }
 
-func (s *BlogTagService) Count(search *string) (int, error) {
+func (s *BlogTagService) Count(search string) (int, error) {
 	// Execute SQL
 	sql := "SELECT * FROM count_blog_tag(@search);"
 	args := pgx.NamedArgs{
-		"search": *search,
+		"search": search,
 	}
 	value := 0
 	err := s.Conn.QueryRow(config.CTX, sql, args).Scan(&value)
@@ -35,27 +35,27 @@ func (s *BlogTagService) Count(search *string) (int, error) {
 	return value, nil
 }
 
-func (s *BlogTagService) GetAll(search *string, limit *int, page *int) ([]models.BlogTag, error) {
+func (s *BlogTagService) GetAll(search string, limit int, page int) ([]models.BlogTag, error) {
 	// Set default range for limit
-	if *limit < 10 {
-		*limit = 10
-	} else if *limit > 50 {
-		*limit = 50
+	if limit < 10 {
+		limit = 10
+	} else if limit > 50 {
+		limit = 50
 	}
 
 	// Set default range for page
-	if *page < 1 {
-		*page = 0
+	if page < 1 {
+		page = 0
 	} else {
-		*page = *page - 1
+		page -= 1
 	}
 
 	// Execute SQL
 	sql := "SELECT * FROM get_all_blog_tag(@search, @limit, @page);"
 	args := pgx.NamedArgs{
-		"search": *search,
-		"limit":  *limit,
-		"page":   *page,
+		"search": search,
+		"limit":  limit,
+		"page":   page,
 	}
 	value := []models.BlogTag{}
 	rows, err := s.Conn.Query(config.CTX, sql, args)
@@ -76,7 +76,7 @@ func (s *BlogTagService) GetAll(search *string, limit *int, page *int) ([]models
 	return value, nil
 }
 
-func (s *BlogTagService) Create(input *models.BlogTag) (models.BlogTag, error) {
+func (s *BlogTagService) Create(input models.BlogTag) (models.BlogTag, error) {
 	// Execute SQL
 	sql := "SELECT * FROM create_blog_tag(@name);"
 	args := pgx.NamedArgs{
@@ -92,7 +92,7 @@ func (s *BlogTagService) Create(input *models.BlogTag) (models.BlogTag, error) {
 	return value, nil
 }
 
-func (s *BlogTagService) Update(input *models.BlogTag) (models.BlogTag, error) {
+func (s *BlogTagService) Update(input models.BlogTag) (models.BlogTag, error) {
 	// Execute SQL
 	sql := "SELECT * FROM update_blog_tag(@id, @name);"
 	args := pgx.NamedArgs{
@@ -109,11 +109,11 @@ func (s *BlogTagService) Update(input *models.BlogTag) (models.BlogTag, error) {
 	return value, nil
 }
 
-func (s *BlogTagService) Remove(id *string) (models.BlogTag, error) {
+func (s *BlogTagService) Remove(id string) (models.BlogTag, error) {
 	// Execute SQL
 	sql := "SELECT * FROM remove_blog_tag(@id);"
 	args := pgx.NamedArgs{
-		"id": *id,
+		"id": id,
 	}
 	value := models.BlogTag{}
 	err := s.Conn.QueryRow(config.CTX, sql, args).Scan(&value.Id, &value.Name)

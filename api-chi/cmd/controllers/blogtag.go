@@ -30,7 +30,7 @@ func (c *BlogTagController) Count(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Execute Count and return if failed or success
-	data, err := c.service.Count(&search)
+	data, err := c.service.Count(search)
 	if err != nil {
 		render.Status(r, http.StatusInternalServerError)
 		render.JSON(w, r, message.Response{
@@ -77,7 +77,7 @@ func (c *BlogTagController) GetAll(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Execute Count and return if failed or success
-	data, err := c.service.GetAll(&search, &limit, &page)
+	data, err := c.service.GetAll(search, limit, page)
 	if err != nil {
 		render.Status(r, http.StatusInternalServerError)
 		render.JSON(w, r, message.Response{
@@ -114,7 +114,7 @@ func (c *BlogTagController) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Execute Count and return if failed or success
-	data, err := c.service.Create(&input)
+	data, err := c.service.Create(input)
 	if err != nil {
 		render.Status(r, http.StatusInternalServerError)
 		render.JSON(w, r, message.Response{
@@ -151,7 +151,7 @@ func (c *BlogTagController) Update(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Execute Count and return if failed or success
-	data, err := c.service.Update(&input)
+	data, err := c.service.Update(input)
 	if err != nil {
 		render.Status(r, http.StatusInternalServerError)
 		render.JSON(w, r, message.Response{
@@ -187,7 +187,7 @@ func (c *BlogTagController) Remove(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Execute Count and return if failed or success
-	data, err := c.service.Remove(&id)
+	data, err := c.service.Remove(id)
 	if err != nil {
 		render.Status(r, http.StatusInternalServerError)
 		render.JSON(w, r, message.Response{

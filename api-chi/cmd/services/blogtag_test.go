@@ -22,7 +22,7 @@ func Test_BlogTagService(t *testing.T) {
 		search := ""
 
 		// Count database
-		count, err := service.Count(&search)
+		count, err := service.Count(search)
 		assert.NoError(t, err)
 		assert.Greater(t, count, 0)
 	})
@@ -37,7 +37,7 @@ func Test_BlogTagService(t *testing.T) {
 		search := "tag 1"
 
 		// Count database
-		count, err := service.Count(&search)
+		count, err := service.Count(search)
 		assert.NoError(t, err)
 		assert.Greater(t, count, 0)
 		assert.Less(t, count, 60)
@@ -55,7 +55,7 @@ func Test_BlogTagService(t *testing.T) {
 		page := 1
 
 		// Count database
-		data, err := service.GetAll(&search, &limit, &page)
+		data, err := service.GetAll(search, limit, page)
 		assert.NoError(t, err)
 		assert.IsType(t, data[0], models.BlogTag{})
 		count := 0
@@ -79,7 +79,7 @@ func Test_BlogTagService(t *testing.T) {
 		page := 1
 
 		// Count database
-		data, err := service.GetAll(&search, &limit, &page)
+		data, err := service.GetAll(search, limit, page)
 		assert.NoError(t, err)
 		assert.IsType(t, data[0], models.BlogTag{})
 		count := 0
@@ -103,7 +103,7 @@ func Test_BlogTagService(t *testing.T) {
 		page := 1
 
 		// Count database
-		data, err := service.GetAll(&search, &limit, &page)
+		data, err := service.GetAll(search, limit, page)
 		assert.NoError(t, err)
 		assert.IsType(t, data[0], models.BlogTag{})
 		count := 0
@@ -127,7 +127,7 @@ func Test_BlogTagService(t *testing.T) {
 		page := 0
 
 		// Count database
-		data, err := service.GetAll(&search, &limit, &page)
+		data, err := service.GetAll(search, limit, page)
 		assert.NoError(t, err)
 		assert.IsType(t, data[0], models.BlogTag{})
 		count := 0
@@ -151,7 +151,7 @@ func Test_BlogTagService(t *testing.T) {
 		page := 1
 
 		// Count database
-		data, err := service.GetAll(&search, &limit, &page)
+		data, err := service.GetAll(search, limit, page)
 		assert.NoError(t, err)
 		assert.IsType(t, data[0], models.BlogTag{})
 		count := 0
@@ -175,7 +175,7 @@ func Test_BlogTagService(t *testing.T) {
 		}
 
 		// Create database
-		value, err := service.Create(&input)
+		value, err := service.Create(input)
 		assert.NoError(t, err)
 		assert.NotEmpty(t, value)
 		assert.Equal(t, value.Name, input.Name)
@@ -197,7 +197,7 @@ func Test_BlogTagService(t *testing.T) {
 		}
 
 		// Create database
-		value, err := service.Update(&input)
+		value, err := service.Update(input)
 		assert.NoError(t, err)
 		assert.NotEmpty(t, value)
 		assert.Equal(t, value.Id, input.Id)
@@ -211,7 +211,7 @@ func Test_BlogTagService(t *testing.T) {
 		assert.NoError(t, err)
 
 		// Remove database
-		value, err := service.Remove(&id)
+		value, err := service.Remove(id)
 		assert.NoError(t, err)
 		assert.NotEmpty(t, value)
 	})
