@@ -6,7 +6,7 @@ CREATE TABLE public.blog_tag (
 CREATE TABLE public.blog_post (
     id         UUID PRIMARY KEY DEFAULT GEN_RANDOM_UUID(),
     title      TEXT,
-    slugs      TEXT UNIQUE,
+    slug       TEXT UNIQUE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     is_draft   BOOLEAN DEFAULT TRUE
