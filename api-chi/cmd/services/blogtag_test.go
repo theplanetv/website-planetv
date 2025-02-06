@@ -175,7 +175,7 @@ func Test_BlogTagService(t *testing.T) {
 		}
 
 		// Create database
-		value, err := service.Create(input)
+		value, err := service.Create(&input)
 		assert.NoError(t, err)
 		assert.NotEmpty(t, value)
 		assert.Equal(t, value.Name, input.Name)
@@ -197,7 +197,7 @@ func Test_BlogTagService(t *testing.T) {
 		}
 
 		// Create database
-		value, err := service.Update(input)
+		value, err := service.Update(&input)
 		assert.NoError(t, err)
 		assert.NotEmpty(t, value)
 		assert.Equal(t, value.Id, input.Id)

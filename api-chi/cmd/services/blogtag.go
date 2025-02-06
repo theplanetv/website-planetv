@@ -76,7 +76,7 @@ func (s *BlogTagService) GetAll(search string, limit int, page int) ([]models.Bl
 	return value, nil
 }
 
-func (s *BlogTagService) Create(input models.BlogTag) (models.BlogTag, error) {
+func (s *BlogTagService) Create(input *models.BlogTag) (models.BlogTag, error) {
 	// Execute SQL
 	sql := "SELECT * FROM create_blog_tag(@name);"
 	args := pgx.NamedArgs{
@@ -92,7 +92,7 @@ func (s *BlogTagService) Create(input models.BlogTag) (models.BlogTag, error) {
 	return value, nil
 }
 
-func (s *BlogTagService) Update(input models.BlogTag) (models.BlogTag, error) {
+func (s *BlogTagService) Update(input *models.BlogTag) (models.BlogTag, error) {
 	// Execute SQL
 	sql := "SELECT * FROM update_blog_tag(@id, @name);"
 	args := pgx.NamedArgs{
