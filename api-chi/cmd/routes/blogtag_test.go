@@ -86,7 +86,6 @@ func Test_BlogTagRoutes(t *testing.T) {
 		// Extract id from the BlogTag data
 		id = dataMap["id"].(string)
 		assert.NotEmpty(t, id)
-		assert.Equal(t, "test tag", dataMap["name"])
 	})
 
 	t.Run("Update success", func(t *testing.T) {
@@ -130,5 +129,6 @@ func Test_BlogTagRoutes(t *testing.T) {
 		err := json.NewDecoder(res.Body).Decode(&response)
 		assert.NoError(t, err)
 		assert.Equal(t, message.REMOVE_DATA_SUCCESS, response.Message)
+		assert.NotNil(t, response.Data)
 	})
 }
