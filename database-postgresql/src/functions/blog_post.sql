@@ -112,10 +112,6 @@ CREATE OR REPLACE FUNCTION create_blog_post(
     DECLARE
         return_id UUID;
     BEGIN
-        INSERT INTO blog_post (title, slug, created_at, updated_at, is_draft)
-        VALUES (input_title, input_slug, input_created_at, input_updated_at, input_is_draft)
-        RETURNING blog_post.id INTO return_id;
-
         RETURN QUERY
             INSERT INTO blog_post (title, slug, created_at, updated_at, is_draft)
             VALUES (input_title, input_slug, input_created_at, input_updated_at, input_is_draft)
