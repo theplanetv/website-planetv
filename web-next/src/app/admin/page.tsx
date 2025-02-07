@@ -62,7 +62,7 @@ export default function Admin(): JSX.Element {
         setIsSuccessLoadData(true);
       }
 
-      const resultData = await blogtag.GetData(search, limit, page);
+      const resultData = await blogtag.GetAll(search, limit, page);
       if (resultData.success === true) {
         setData(resultData.data);
         setIsSuccessLoadData(true);

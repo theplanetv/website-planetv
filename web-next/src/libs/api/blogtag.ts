@@ -53,7 +53,7 @@ async function Count(search: string): Promise<ReturnCountData> {
   }
 }
 
-async function GetData(
+async function GetAll(
   search: string,
   limit: number,
   page: number,
@@ -219,7 +219,7 @@ async function Remove(id: string): Promise<ReturnData> {
 
 export default {
   Count,
-  GetData,
+  GetAll,
   Create,
   Update,
   Remove,
