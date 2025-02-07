@@ -54,7 +54,7 @@ func Test_BlogTagService(t *testing.T) {
 		limit := 10
 		page := 1
 
-		// Count database
+		// Get all database
 		data, err := service.GetAll(search, limit, page)
 		assert.NoError(t, err)
 		assert.IsType(t, data[0], models.BlogTag{})
@@ -78,7 +78,7 @@ func Test_BlogTagService(t *testing.T) {
 		limit := 9
 		page := 1
 
-		// Count database
+		// Get all database
 		data, err := service.GetAll(search, limit, page)
 		assert.NoError(t, err)
 		assert.IsType(t, data[0], models.BlogTag{})
@@ -102,7 +102,7 @@ func Test_BlogTagService(t *testing.T) {
 		limit := 51
 		page := 1
 
-		// Count database
+		// Get all database
 		data, err := service.GetAll(search, limit, page)
 		assert.NoError(t, err)
 		assert.IsType(t, data[0], models.BlogTag{})
@@ -115,7 +115,7 @@ func Test_BlogTagService(t *testing.T) {
 		assert.Equal(t, count, 50)
 	})
 
-	t.Run("GetAll page < 1 will return 50 success", func(t *testing.T) {
+	t.Run("GetAll page < 1 will return 10 success", func(t *testing.T) {
 		// Connect database
 		err := service.Open()
 		defer service.Close()
@@ -126,7 +126,7 @@ func Test_BlogTagService(t *testing.T) {
 		limit := 10
 		page := 0
 
-		// Count database
+		// Get all database
 		data, err := service.GetAll(search, limit, page)
 		assert.NoError(t, err)
 		assert.IsType(t, data[0], models.BlogTag{})
@@ -150,7 +150,7 @@ func Test_BlogTagService(t *testing.T) {
 		limit := 20
 		page := 1
 
-		// Count database
+		// Get all database
 		data, err := service.GetAll(search, limit, page)
 		assert.NoError(t, err)
 		assert.IsType(t, data[0], models.BlogTag{})
@@ -196,7 +196,7 @@ func Test_BlogTagService(t *testing.T) {
 			Name: "this is test tag",
 		}
 
-		// Create database
+		// Update database
 		value, err := service.Update(&input)
 		assert.NoError(t, err)
 		assert.NotEmpty(t, value)
