@@ -43,6 +43,16 @@ test_wait_postgresql() {
 			/api-chi/cmd/services/blogfile.go /api-chi/cmd/services/blogfile_test.go /api-chi/cmd/services/database.go
 		;;
 
+		"blogpost-route" )
+		docker exec ${PROJECT_API_CHI_CONTAINER} go test -v \
+			/api-chi/cmd/routes/auth.go /api-chi/cmd/routes/blogpost.go /api-chi/cmd/routes/blogpost_test.go
+		;;
+
+		"blogpost-service" )
+		docker exec ${PROJECT_API_CHI_CONTAINER} go test -v \
+			/api-chi/cmd/services/blogpost.go /api-chi/cmd/services/blogpost_test.go /api-chi/cmd/services/database.go
+		;;
+
 		"blogtag-route" )
 		docker exec ${PROJECT_API_CHI_CONTAINER} go test -v \
 			/api-chi/cmd/routes/auth.go /api-chi/cmd/routes/blogtag.go /api-chi/cmd/routes/blogtag_test.go
@@ -89,6 +99,12 @@ if [ $# -eq 1 ]; then
 
 		"api-blogfile-service" )
 			test_wait_postgresql blogfile-service ;;
+
+		"api-blogpost-route" )
+			test_wait_postgresql blogpost-route ;;
+
+		"api-blogpost-service" )
+			test_wait_postgresql blogpost-service ;;
 
 		"api-blogtag-route" )
 			test_wait_postgresql blogtag-route ;;
