@@ -35,7 +35,7 @@ func main() {
 	// Define the /api route and its subroutes
 	r.Route("/api", func(r chi.Router) {
 		routes.AuthRoutes(r)
-		routes.BlogFileRoutes(r)
+		routes.BlogPostRoutes(r)
 		routes.BlogTagRoutes(r)
 	})
 
