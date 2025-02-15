@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import "@mantine/core/styles.css";
+import '@mantine/dates/styles.css';
 import { createTheme, MantineProvider } from "@mantine/core";
 
 const theme = createTheme({
