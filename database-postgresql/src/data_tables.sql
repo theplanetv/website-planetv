@@ -18,8 +18,10 @@ CREATE TABLE public.blog_post_tag (
     post_id UUID,
     CONSTRAINT fk_tag_for_blog_post_tag
         FOREIGN KEY (tag_id)
-        REFERENCES public.blog_tag(id),
+        REFERENCES public.blog_tag(id)
+        ON DELETE CASCADE,
     CONSTRAINT fk_post_for_blog_post_tag
         FOREIGN KEY (post_id)
         REFERENCES public.blog_post(id)
+        ON DELETE CASCADE
 );
