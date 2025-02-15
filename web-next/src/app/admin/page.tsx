@@ -8,13 +8,14 @@ import { JSX, useEffect, useState } from "react";
 import "./page.css";
 
 import DisplayAdmin from "@/components/display/DisplayAdmin";
-import FormBlogTag from "@/components/form/FormBlogTag";
+import FormInputAdmin from "@/components/form/FormInputAdmin";
 import MenuAdmin from "@/components/menu/MenuAdmin";
 
 import { verify } from "@/libs/api/auth";
 import blogtag from "@/libs/api/blogtag";
 import { FormStatusEnum, MenuAdminEnum } from "@/libs/enum";
-import { BlogTag } from "@/libs/types";
+import { BlogPost, BlogTag } from "@/libs/types";
+import blogpost from "@/libs/api/blogpost";
 
 export default function Admin(): JSX.Element {
   const router = useRouter();
@@ -25,7 +26,8 @@ export default function Admin(): JSX.Element {
   const [refresh, setRefresh] = useState(true);
   const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
-  const [inputFormData, setInputFormData] = useState<BlogTag>();
+  const [tags, setTags] = useState("");
+  const [inputFormData, setInputFormData] = useState<BlogTag | BlogPost>();
 
   // User state (user can change status)
   const [menuChoose, setMenuChoose] = useState(MenuAdminEnum.TAG);
@@ -56,21 +58,35 @@ export default function Admin(): JSX.Element {
 
   useEffect(() => {
     const fetchData = async () => {
-      const resultCount = await blogtag.Count(search);
-      if (resultCount.success === true) {
-        setCount(resultCount.data);
-        setIsSuccessLoadData(true);
-      }
+      if (menuChoose === MenuAdminEnum.TAG) {
+        const resultCount = await blogtag.Count(search);
+        if (resultCount.success === true) {
+          setCount(resultCount.data);
+          setIsSuccessLoadData(true);
+        }
 
-      const resultData = await blogtag.GetAll(search, limit, page);
-      if (resultData.success === true) {
-        setData(resultData.data);
-        setIsSuccessLoadData(true);
+        const resultData = await blogtag.GetAll(search, limit, page);
+        if (resultData.success === true) {
+          setData(resultData.data);
+          setIsSuccessLoadData(true);
+        }
+      } else if (menuChoose === MenuAdminEnum.POST) {
+        const resultCount = await blogpost.Count(search);
+        if (resultCount.success === true) {
+          setCount(resultCount.data);
+          setIsSuccessLoadData(true);
+        }
+
+        const resultData = await blogpost.GetAll(search, tags, limit, page);
+        if (resultData.success === true) {
+          setData(resultData.data);
+          setIsSuccessLoadData(true);
+        }
       }
     };
     fetchData();
     setRefresh(false);
-  }, [refresh, search, page]);
+  }, [menuChoose,refresh, search, page]);
 
   if (isLoading) {
     return (
@@ -96,8 +112,9 @@ export default function Admin(): JSX.Element {
       </Stack>
 
       {formStatus !== FormStatusEnum.NONE && (
-        <FormBlogTag
+        <FormInputAdmin
           handleRefreshToTrue={handleRefreshToTrue}
+          menuChoose={menuChoose}
           formStatus={formStatus}
           handleFormStatus={handleFormStatus}
           inputFormData={inputFormData}
