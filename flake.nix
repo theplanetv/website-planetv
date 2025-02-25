@@ -22,7 +22,6 @@
                 nodejs
 
                 # Other tools
-                dbeaver-bin
                 scc
               ];
             };
