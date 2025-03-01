@@ -96,6 +96,7 @@ CREATE OR REPLACE FUNCTION get_all_blog_post(
 CREATE OR REPLACE FUNCTION create_blog_post(
         input_title      TEXT,
         input_slug       TEXT,
+        input_content    TEXT,
         input_created_at TIMESTAMP WITH TIME ZONE,
         input_updated_at TIMESTAMP WITH TIME ZONE,
         input_is_draft   BOOLEAN
@@ -104,6 +105,7 @@ CREATE OR REPLACE FUNCTION create_blog_post(
         id         UUID,
         title      TEXT,
         slug       TEXT,
+        content    TEXT,
         created_at TIMESTAMP WITH TIME ZONE,
         updated_at TIMESTAMP WITH TIME ZONE,
         is_draft   BOOLEAN
@@ -113,12 +115,13 @@ CREATE OR REPLACE FUNCTION create_blog_post(
         return_id UUID;
     BEGIN
         RETURN QUERY
-            INSERT INTO blog_post (title, slug, created_at, updated_at, is_draft)
-            VALUES (input_title, input_slug, input_created_at, input_updated_at, input_is_draft)
+            INSERT INTO blog_post (title, slug, content, created_at, updated_at, is_draft)
+            VALUES (input_title, input_slug, input_content, input_created_at, input_updated_at, input_is_draft)
             RETURNING
                 blog_post.id,
                 blog_post.title,
                 blog_post.slug,
+                blog_post.content,
                 blog_post.created_at,
                 blog_post.updated_at,
                 blog_post.is_draft;
@@ -129,6 +132,7 @@ CREATE OR REPLACE FUNCTION update_blog_post(
         input_id         UUID,
         input_title      TEXT,
         input_slug       TEXT,
+        input_content    TEXT,
         input_created_at TIMESTAMP WITH TIME ZONE,
         input_updated_at TIMESTAMP WITH TIME ZONE,
         input_is_draft   BOOLEAN
@@ -137,6 +141,7 @@ CREATE OR REPLACE FUNCTION update_blog_post(
         id         UUID,
         title      TEXT,
         slug       TEXT,
+        content    TEXT,
         created_at TIMESTAMP WITH TIME ZONE,
         updated_at TIMESTAMP WITH TIME ZONE,
         is_draft   BOOLEAN
@@ -147,6 +152,7 @@ CREATE OR REPLACE FUNCTION update_blog_post(
             UPDATE blog_post
             SET title = input_title,
                 slug = input_slug,
+                content = input_content,
                 created_at = input_created_at,
                 updated_at = input_updated_at,
                 is_draft = input_is_draft
@@ -155,6 +161,7 @@ CREATE OR REPLACE FUNCTION update_blog_post(
                 blog_post.id,
                 blog_post.title,
                 blog_post.slug,
+                blog_post.content,
                 blog_post.created_at,
                 blog_post.updated_at,
                 blog_post.is_draft;
@@ -168,6 +175,7 @@ CREATE OR REPLACE FUNCTION remove_blog_post(
         id         UUID,
         title      TEXT,
         slug       TEXT,
+        content    TEXT,
         created_at TIMESTAMP WITH TIME ZONE,
         updated_at TIMESTAMP WITH TIME ZONE,
         is_draft   BOOLEAN
@@ -183,6 +191,7 @@ CREATE OR REPLACE FUNCTION remove_blog_post(
                 blog_post.id,
                 blog_post.title,
                 blog_post.slug,
+                blog_post.content,
                 blog_post.created_at,
                 blog_post.updated_at,
                 blog_post.is_draft;
