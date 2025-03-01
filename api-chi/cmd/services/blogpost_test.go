@@ -257,6 +257,7 @@ func Test_BlogPostService(t *testing.T) {
 		input := models.BlogPost{
 			Title:     "new post",
 			Slug:      "new_post",
+			Content:   "## Hello new post!",
 			CreatedAt: time.Now(),
 			UpdatedAt: time.Now(),
 			IsDraft:   true,
@@ -287,6 +288,7 @@ func Test_BlogPostService(t *testing.T) {
 			Id:        id,
 			Title:     "My test post",
 			Slug:      "my_test_post",
+			Content:   "## Hello my test post!",
 			CreatedAt: time.Now(),
 			UpdatedAt: time.Now(),
 			IsDraft:   true,

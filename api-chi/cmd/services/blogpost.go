@@ -86,10 +86,11 @@ func (s *BlogPostService) GetAll(search string, tags string, limit int, page int
 
 func (s *BlogPostService) Create(input *models.BlogPost) (models.BlogPost, error) {
 	// Execute SQL
-	sql := "SELECT * FROM create_blog_post(@title, @slug, @created_at, @updated_at, @is_draft);"
+	sql := "SELECT * FROM create_blog_post(@title, @slug, @content, @created_at, @updated_at, @is_draft);"
 	args := pgx.NamedArgs{
 		"title":      input.Title,
 		"slug":       input.Slug,
+		"content":    input.Content,
 		"created_at": input.CreatedAt,
 		"updated_at": input.UpdatedAt,
 		"is_draft":   input.IsDraft,
@@ -99,6 +100,7 @@ func (s *BlogPostService) Create(input *models.BlogPost) (models.BlogPost, error
 		&value.Id,
 		&value.Title,
 		&value.Slug,
+		&value.Content,
 		&value.CreatedAt,
 		&value.UpdatedAt,
 		&value.IsDraft,
@@ -113,11 +115,12 @@ func (s *BlogPostService) Create(input *models.BlogPost) (models.BlogPost, error
 
 func (s *BlogPostService) Update(input *models.BlogPost) (models.BlogPost, error) {
 	// Execute SQL
-	sql := "SELECT * FROM update_blog_post(@id, @title, @slug, @created_at, @updated_at, @is_draft);"
+	sql := "SELECT * FROM update_blog_post(@id, @title, @slug, @content, @created_at, @updated_at, @is_draft);"
 	args := pgx.NamedArgs{
 		"id":         input.Id,
 		"title":      input.Title,
 		"slug":       input.Slug,
+		"content":    input.Content,
 		"created_at": input.CreatedAt,
 		"updated_at": input.UpdatedAt,
 		"is_draft":   input.IsDraft,
@@ -127,6 +130,7 @@ func (s *BlogPostService) Update(input *models.BlogPost) (models.BlogPost, error
 		&value.Id,
 		&value.Title,
 		&value.Slug,
+		&value.Content,
 		&value.CreatedAt,
 		&value.UpdatedAt,
 		&value.IsDraft,
@@ -150,6 +154,7 @@ func (s *BlogPostService) Remove(id string) (models.BlogPost, error) {
 		&value.Id,
 		&value.Title,
 		&value.Slug,
+		&value.Content,
 		&value.CreatedAt,
 		&value.UpdatedAt,
 		&value.IsDraft,
