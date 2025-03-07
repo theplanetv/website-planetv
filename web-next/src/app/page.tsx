@@ -3,7 +3,7 @@
 import { Burger, Center, Flex, Title } from "@mantine/core";
 import { JSX, useState } from "react";
 
-import Menu from "@/components/Menu";
+import Menu from "@/components/menu/Menu";
 import { useDisclosure } from "@mantine/hooks";
 import { MenuEnum } from "@/libs/enum";
 

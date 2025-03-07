@@ -19,7 +19,7 @@ export default function Menu({
   return (
     <>
       {isVisible && (
-        <nav>
+        <nav className="menu">
           <NavLink
             href="/"
             label={toTitleCase(MenuEnum.HOME.toString())}
