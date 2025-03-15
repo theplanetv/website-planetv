@@ -17,7 +17,11 @@
           default = with pkgs;
             mkShell {
               nativeBuildInputs = [
-                # Development tools
+                # Rust
+                cargo
+                clang
+                diesel-cli
+
                 go
                 nodejs
 
