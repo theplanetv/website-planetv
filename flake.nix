@@ -22,6 +22,9 @@
                 clang
                 diesel-cli
 
+                # Database
+                postgresql
+
                 go
                 nodejs
 
@@ -30,6 +33,10 @@
                 scc
               ];
             };
+
+            shellHook = ''
+              export DATABASE_URL="postgres://postgres:postgres@localhost:14005/planetv"
+            '';
         });
     };
 }
